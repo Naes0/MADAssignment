@@ -10,11 +10,17 @@ public class Area implements Parcelable
 {
     private boolean town;
     private List<Item> itemlist;
+    private String description;
+    private boolean starred;
+    private boolean explored;
 
     public Area(boolean town)
     {
         this.town = town;
         itemlist = new ArrayList<Item>();
+        description = "";
+        starred = false;
+        explored = false;
     }
 
     protected Area(Parcel in)
@@ -37,6 +43,21 @@ public class Area implements Parcelable
             return new Area[size];
         }
     };
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public void setStarred(boolean boo)
+    {
+        starred = boo;
+    }
+
+    public void setExplored(boolean boo)
+    {
+        explored = boo;
+    }
 
     public boolean isTown()
     {

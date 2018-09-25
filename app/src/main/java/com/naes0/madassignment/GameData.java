@@ -3,11 +3,23 @@ package com.naes0.madassignment;
 public class GameData
 {
     private Area grid[][];
+    private Player player;
+    private static GameData instance;
+
+    public static GameData get()
+    {
+        if (instance == null)
+        {
+            instance = new GameData();
+        }
+        return instance;
+    }
 
     public GameData()
     {
         grid = new Area[3][3];
         grid[0][0] = new Area(false);
+        grid[0][0].setExplored(true);
         grid[0][1] = new Area(true);
         grid[0][1].addItem(new Food("Apple", 5, 10));
         grid[0][1].addItem(new Equipment("Necklace", 25, 5));
