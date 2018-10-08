@@ -1,39 +1,38 @@
 package com.naes0.madassignment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameData
 {
+    public static final int WIDTH = 30;
+    public static final int HEIGHT = 10;
+
     private Area grid[][];
     private Player player;
-    private static GameData instance;
+    private List<Item> itemList;
+
+    private static GameData instance = null;
 
     public static GameData get()
     {
         if (instance == null)
         {
-            instance = new GameData();
+            instance = new GameData(generateGrid());
         }
         return instance;
     }
 
-    public GameData()
+    public GameData(Area[][] grid)
     {
-        grid = new Area[3][3];
-        grid[0][0] = new Area(false);
-        grid[0][0].setExplored(true);
-        grid[0][1] = new Area(true);
-        grid[0][1].addItem(new Food("Apple", 5, 10));
-        grid[0][1].addItem(new Equipment("Necklace", 25, 5));
-        grid[0][2] = new Area(false);
-        grid[1][0] = new Area(false);
-        grid[1][0].addItem(new Food("Apple", 5, 10));
-        grid[1][1] = new Area(true);
-        grid[1][2] = new Area(false);
-        grid[2][0] = new Area(false);
-        grid[2][0].addItem(new Equipment("Boots", 6, 2));
-        grid[2][1] = new Area(true);
-        grid[2][2] = new Area(true);
-        grid[2][2].addItem(new Food("Mango", 10, 25));
-        grid[2][2].addItem(new Equipment("Boots", 6, 2));
+        this.grid = grid;
+        this.player = new Player();
+        this.itemList = itemListSet();
+    }
+
+    private static Area[][] generateGrid()
+    {
+
     }
 
     public Area getArea(int x, int y)
@@ -43,5 +42,16 @@ public class GameData
     public void setArea(int x, int y, Area area)
     {
         grid[x][y] = area;
+    }
+
+    public List<Item> itemListSet()
+    {
+        List<Item> itemList = new ArrayList<Item>();
+        itemList.add(new Food() )
+        return itemList
+    }
+    public Player getPlayer()
+    {
+        return player;
     }
 }

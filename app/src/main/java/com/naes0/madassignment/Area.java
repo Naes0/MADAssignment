@@ -5,27 +5,42 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Area implements Parcelable
 {
     private boolean town;
-    private List<Item> itemlist;
     private String description;
     private boolean starred;
     private boolean explored;
+    private List<Item> itemlist;
 
-    public Area(boolean town)
+    public Area()
     {
-        this.town = town;
-        itemlist = new ArrayList<Item>();
+        town = randTown(); //25% chance of being town
         description = "";
         starred = false;
         explored = false;
+        itemlist = new ArrayList<Item>();
+    }
+
+    public boolean randTown()
+    {
+        boolean isTown = false;
+        Random rand = new Random();
+        if (rand.nextDouble() <= 0.25)
+        {
+            isTown = true;
+        }
+        return isTown;
     }
 
     protected Area(Parcel in)
     {
         town = in.readByte() != 0;
+        description = in.readString();
+        starred = in.readByte() != 0;
+        explored = in.readByte() != 0;
         itemlist = in.readArrayList(Item.class.getClassLoader());
     }
 
@@ -89,6 +104,9 @@ public class Area implements Parcelable
     public void writeToParcel(Parcel parcel, int i)
     {
         parcel.writeByte((byte) (town ? 1 : 0));
+        parcel.writeString(description);
+        parcel.writeByte((byte)(starred ? 1 : 0));
+        parcel.writeByte((byte)(explored ? 1 : 0));
         parcel.writeList(itemlist);
     }
 }
