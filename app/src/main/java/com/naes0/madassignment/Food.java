@@ -56,6 +56,12 @@ public class Food extends Item implements Parcelable
     }
 
     @Override
+    public void use()
+    {
+
+    }
+
+    @Override
     public int describeContents()
     {
         return 0;

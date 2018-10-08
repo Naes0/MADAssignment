@@ -36,4 +36,5 @@ public abstract class Item implements Parcelable
     public abstract double getMassOrHealth();
     public abstract String getStringType();
     public abstract String getStringHealthMass();
+    public abstract void use();
 }

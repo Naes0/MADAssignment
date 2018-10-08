@@ -13,15 +13,15 @@ public class Area implements Parcelable
     private String description;
     private boolean starred;
     private boolean explored;
-    private List<Item> itemlist;
+    private List<Item> itemList;
 
-    public Area()
+    public Area(List<Item> itemList)
     {
         town = randTown(); //25% chance of being town
         description = "";
         starred = false;
         explored = false;
-        itemlist = new ArrayList<Item>();
+        this.itemList = itemList;
     }
 
     public boolean randTown()
@@ -41,7 +41,7 @@ public class Area implements Parcelable
         description = in.readString();
         starred = in.readByte() != 0;
         explored = in.readByte() != 0;
-        itemlist = in.readArrayList(Item.class.getClassLoader());
+        itemList = in.readArrayList(Item.class.getClassLoader());
     }
 
     public static final Creator<Area> CREATOR = new Creator<Area>()
@@ -58,6 +58,11 @@ public class Area implements Parcelable
             return new Area[size];
         }
     };
+    
+    public void setitemList(List<Item> list)
+    {
+        this.itemList = list;
+    }
 
     public void setDescription(String description)
     {
@@ -86,12 +91,12 @@ public class Area implements Parcelable
 
     public void addItem(Item item)
     {
-        itemlist.add(item);
+        itemList.add(item);
     }
 
-    public List<Item> getItemList()
+    public List<Item> getitemList()
     {
-        return itemlist;
+        return itemList;
     }
 
     @Override
@@ -107,6 +112,27 @@ public class Area implements Parcelable
         parcel.writeString(description);
         parcel.writeByte((byte)(starred ? 1 : 0));
         parcel.writeByte((byte)(explored ? 1 : 0));
-        parcel.writeList(itemlist);
+        parcel.writeList(itemList);
+    }
+    public String printTown()
+    {
+        if (isTown())
+        {
+            return "town";
+        }
+        else
+        {
+            return "wildnerness";
+        }
+    }
+    
+    public String printItemList()
+    {
+        String itemListstring = "";
+        for(Item item : itemList)
+        {
+            itemListstring = itemListstring + "\n        " + item.getDesc();
+        }
+        return itemListstring;
     }
 }

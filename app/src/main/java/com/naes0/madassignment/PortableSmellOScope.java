@@ -3,7 +3,7 @@ package com.naes0.madassignment;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PortableSmellOScope extends Usable implements Parcelable
+public class PortableSmellOScope extends Equipment implements Parcelable
 {
     public PortableSmellOScope(String desc, int value, int mass)
     {
@@ -18,6 +18,6 @@ public class PortableSmellOScope extends Usable implements Parcelable
     @Override
     public void use()
     {
-
+        //start new activity of item of up to 2 squares away;
     }
 }
