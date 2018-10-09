@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                GameData gd = GameData.get();
-                Area[][] grid = gd.getGrid();
+                startActivity(new Intent(MainActivity.this, NavigationActivity.class));
             }
         });
     }
