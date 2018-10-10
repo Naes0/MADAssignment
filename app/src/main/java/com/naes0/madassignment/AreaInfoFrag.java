@@ -17,7 +17,6 @@ public class AreaInfoFrag extends Fragment
     private EditText descEdit;
     private Switch starred;
     private Area currArea;
-    private Player player;
 
     @Override
     public void onCreate(Bundle b)
@@ -30,7 +29,6 @@ public class AreaInfoFrag extends Fragment
     {
         View view = li.inflate(R.layout.area_info, parent, false);
 
-
         descView = (TextView) view.findViewById(R.id.descView);
         descEdit = (EditText) view.findViewById(R.id.descEdit);
         starred = (Switch) view.findViewById(R.id.starred);
@@ -42,10 +40,19 @@ public class AreaInfoFrag extends Fragment
             @Override
             public void onClick(View view)
             {
-                //currArea set description to that;
+                currArea.setDescription(descEdit.getText().toString());
             }
         });
 
+        starred.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                starred.setChecked(!currArea.getStarred());
+                currArea.setStarred(!currArea.getStarred());
+            }
+        });
 
         return view;
     }
@@ -53,11 +60,12 @@ public class AreaInfoFrag extends Fragment
     public void setCurrArea(Area currArea)
     {
         this.currArea = currArea;
-    }
-
-    public void setPlayer(Player player)
-    {
-        this.player = player;
+        if (descView != null && descEdit != null && starred != null)
+        {
+            descView.setText(setWildOrTown());
+            descEdit.setText(currArea.getDescription());
+            starred.setChecked(currArea.getStarred());
+        }
     }
 
     public String setWildOrTown()

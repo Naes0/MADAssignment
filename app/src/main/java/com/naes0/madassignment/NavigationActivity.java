@@ -1,15 +1,20 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NavigationActivity extends AppCompatActivity
 {
@@ -22,6 +27,9 @@ public class NavigationActivity extends AppCompatActivity
     private Button eastButton;
     private Button optionButton;
     private Button overviewButton;
+
+    Fragment areaInfo;
+    Fragment statusBar;
 
     private Player player;
     private GameData data;
@@ -39,13 +47,12 @@ public class NavigationActivity extends AppCompatActivity
         playerSetup();
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment areaInfo = fm.findFragmentById(R.id.areainfo);
-        Fragment statusBar = fm.findFragmentById(R.id.statusbar);
+        areaInfo = fm.findFragmentById(R.id.areainfo);
+        statusBar = fm.findFragmentById(R.id.statusbar);
         if (areaInfo == null)
         {
             areaInfo = new AreaInfoFrag();
             ((AreaInfoFrag) areaInfo).setCurrArea(currArea);
-            ((AreaInfoFrag) areaInfo).setPlayer(player);
             fm.beginTransaction().add(R.id.areainfo, areaInfo).commit();
         }
         if (statusBar == null)
@@ -54,6 +61,32 @@ public class NavigationActivity extends AppCompatActivity
             ((StatusBarFrag) statusBar).setPlayer(player);
             fm.beginTransaction().add(R.id.statusbar, statusBar).commit();
         }
+
+        northButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(player.getRow() < GameData.HEIGHT)
+                {
+                    player.addRow(1);
+                    playerMoves();
+                }
+            }
+        });
+
+        southButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(player.getRow() > 0)
+                {
+                    player.addRow(-1);
+                    playerMoves();
+                }
+            }
+        });
 
     }
 
@@ -77,6 +110,26 @@ public class NavigationActivity extends AppCompatActivity
     public Player getPlayer()
     {
         return player;
+    }
+
+    public void playerMoves()
+    {
+        try
+        {
+            player.decreaseHealth();
+        }
+        catch (DecreaseHealthException e)
+        {
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, "You Lose", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            startActivity(new Intent(NavigationActivity.this, MainActivity.class));
+        }
+        locationView.setText(player.getPos());
+        currArea = data.getArea(player.getRow(), player.getCol());
+        ((AreaInfoFrag) areaInfo).setCurrArea(currArea);
+        ((StatusBarFrag) statusBar).setPlayer(player);
     }
 
     public void playerSetup()

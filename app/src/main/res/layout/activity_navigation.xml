@@ -91,27 +91,28 @@
         android:id="@+id/east"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="48dp"
         android:text="East"
         app:layout_constraintBottom_toTopOf="@id/statusbar"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/option"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintStart_toEndOf="@+id/north"
+        app:layout_constraintTop_toBottomOf="@+id/areainfo"
+        app:layout_constraintVertical_bias="0.662" />
 
     <Button
         android:id="@+id/west"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
+        android:layout_marginTop="8dp"
         android:text="West"
         app:layout_constraintBottom_toTopOf="@id/statusbar"
-        app:layout_constraintEnd_toStartOf="@+id/east"
+        app:layout_constraintEnd_toStartOf="@+id/south"
         app:layout_constraintHorizontal_bias="0.393"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/east"
-        app:layout_constraintTop_toBottomOf="@id/overview"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintTop_toBottomOf="@+id/areainfo"
+        app:layout_constraintVertical_bias="0.662" />
 
     <Button
         android:id="@+id/south"

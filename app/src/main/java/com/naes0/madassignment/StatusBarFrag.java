@@ -51,6 +51,12 @@ public class StatusBarFrag extends Fragment
     public void setPlayer(Player player)
     {
         this.player = player;
+        if (healthView != null && cashView != null && massView != null)
+        {
+            healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
+            cashView.setText("Cash: $" + player.getCash());
+            massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
+        }
     }
 
 }

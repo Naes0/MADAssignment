@@ -69,9 +69,19 @@ public class Area implements Parcelable
         this.description = description;
     }
 
+    public String getDescription()
+    {
+        return description;
+    }
+
     public void setStarred(boolean boo)
     {
         starred = boo;
+    }
+
+    public boolean getStarred()
+    {
+        return starred;
     }
 
     public void setExplored(boolean boo)
