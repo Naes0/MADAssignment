@@ -2,7 +2,8 @@ package com.naes0.madassignment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,24 @@ public class AreaInfoFrag extends Fragment
 
         descView.setText(setWildOrTown());
 
-        descEdit.setOnClickListener(new View.OnClickListener()
+        descEdit.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void onClick(View view)
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                currArea.setDescription(descEdit.getText().toString());
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+                currArea.setDescription(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+
             }
         });
 

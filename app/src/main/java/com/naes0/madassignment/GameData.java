@@ -2,12 +2,13 @@ package com.naes0.madassignment;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 import java.util.Random;
 
-public class GameData
+public class GameData implements Serializable
 {
     public static final int WIDTH = 20;
     public static final int HEIGHT = 10;
@@ -28,6 +29,7 @@ public class GameData
         return instance;
     }
 
+
     public GameData()
     {
         this.player = new Player();
@@ -35,7 +37,12 @@ public class GameData
         this.grid = generateGrid();
     }
 
-    private static Area[][] generateGrid()
+    public void regenerate()
+    {
+        grid = generateGrid();
+    }
+
+    public static Area[][] generateGrid()
     {
         Area[][] grid = new Area[HEIGHT][WIDTH];
         for(int i = 0; i < HEIGHT; i++)
@@ -92,6 +99,7 @@ public class GameData
         return areaItemList;
     }
 
+    //weighted item chances
     public static Item getRandomItem()
     {
         Item item = null;

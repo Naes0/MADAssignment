@@ -28,8 +28,8 @@ public class NavigationActivity extends AppCompatActivity
     private Button optionButton;
     private Button overviewButton;
 
-    Fragment areaInfo;
-    Fragment statusBar;
+    private Fragment areaInfo;
+    private Fragment statusBar;
 
     private Player player;
     private GameData data;
@@ -67,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(player.getRow() < GameData.HEIGHT)
+                if(player.getRow() < GameData.HEIGHT-1)
                 {
                     player.addRow(1);
                     playerMoves();
@@ -83,6 +83,32 @@ public class NavigationActivity extends AppCompatActivity
                 if(player.getRow() > 0)
                 {
                     player.addRow(-1);
+                    playerMoves();
+                }
+            }
+        });
+
+        eastButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(player.getCol() < GameData.WIDTH - 1)
+                {
+                    player.addCol(1);
+                    playerMoves();
+                }
+            }
+        });
+
+        westButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(player.getCol() > 0)
+                {
+                    player.addCol(-1);
                     playerMoves();
                 }
             }
@@ -114,7 +140,7 @@ public class NavigationActivity extends AppCompatActivity
 
     public void playerMoves()
     {
-        try
+        /*try
         {
             player.decreaseHealth();
         }
@@ -125,7 +151,7 @@ public class NavigationActivity extends AppCompatActivity
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             startActivity(new Intent(NavigationActivity.this, MainActivity.class));
-        }
+        }*/
         locationView.setText(player.getPos());
         currArea = data.getArea(player.getRow(), player.getCol());
         ((AreaInfoFrag) areaInfo).setCurrArea(currArea);

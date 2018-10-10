@@ -1,5 +1,6 @@
 package com.naes0.madassignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ public class StatusBarFrag extends Fragment
     private TextView massView;
     private Button restartButton;
     private Player player;
+    private GameData data;
 
     @Override
     public void onCreate(Bundle b)
@@ -41,7 +43,9 @@ public class StatusBarFrag extends Fragment
             @Override
             public void onClick(View view)
             {
-                //currArea set description to that;
+                GameData data = GameData.get();
+                data.regenerate();
+                startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
 
@@ -58,5 +62,4 @@ public class StatusBarFrag extends Fragment
             massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
         }
     }
-
 }
