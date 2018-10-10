@@ -67,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(player.getRow() < GameData.HEIGHT-1)
+                if (player.getRow() < GameData.HEIGHT - 1)
                 {
                     player.addRow(1);
                     playerMoves();
@@ -80,7 +80,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(player.getRow() > 0)
+                if (player.getRow() > 0)
                 {
                     player.addRow(-1);
                     playerMoves();
@@ -93,7 +93,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(player.getCol() < GameData.WIDTH - 1)
+                if (player.getCol() < GameData.WIDTH - 1)
                 {
                     player.addCol(1);
                     playerMoves();
@@ -106,7 +106,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(player.getCol() > 0)
+                if (player.getCol() > 0)
                 {
                     player.addCol(-1);
                     playerMoves();
@@ -114,6 +114,23 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
 
+        optionButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent;
+                if (currArea.isTown())
+                {
+                    intent = new Intent(NavigationActivity.this, MarketActivity.class);
+                } else
+                {
+                    intent = new Intent(NavigationActivity.this, WildernessActivity.class);
+                }
+                intent.putExtra("currArea", currArea);
+                startActivity(intent);
+            }
+        });
     }
 
     public void initialiseComponents()
