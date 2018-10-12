@@ -18,11 +18,16 @@ public class AreaInfoFrag extends Fragment
     private EditText descEdit;
     private Switch starred;
     private Area currArea;
+    private GameData data;
+    private Player player;
 
     @Override
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
+        data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
     }
 
     @Override
@@ -70,15 +75,12 @@ public class AreaInfoFrag extends Fragment
         return view;
     }
 
-    public void setCurrArea(Area currArea)
+    public void update()
     {
-        this.currArea = currArea;
-        if (descView != null && descEdit != null && starred != null)
-        {
-            descView.setText(setWildOrTown());
-            descEdit.setText(currArea.getDescription());
-            starred.setChecked(currArea.getStarred());
-        }
+        currArea = data.getArea(player.getRow(), player.getCol());
+        descView.setText(setWildOrTown());
+        descEdit.setText(currArea.getDescription());
+        starred.setChecked(currArea.getStarred());
     }
 
     public String setWildOrTown()

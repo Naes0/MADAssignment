@@ -18,6 +18,7 @@ public class BuyListFragment extends Fragment
     private Area currArea;
     private List<Item> itemList;
     private ItemAdapter adapter;
+    private Item selectedItem;
 
     @Override
     public void onCreate(Bundle b)
@@ -55,6 +56,15 @@ public class BuyListFragment extends Fragment
             name = (TextView) itemView.findViewById(R.id.itemname);
             value = (TextView) itemView.findViewById(R.id.value);
             masshealth = (TextView) itemView.findViewById(R.id.masshealth);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                   selectedItem = item;
+                }
+            });
         }
 
         public void bind(Item item)
@@ -87,6 +97,17 @@ public class BuyListFragment extends Fragment
         {
             return itemList.size();
         }
+    }
+
+    public Item getSelectedItem()
+    {
+        itemList.remove(selectedItem);
+        return selectedItem;
+    }
+
+    public void update()
+    {
+        adapter.notifyDataSetChanged();
     }
 
 }

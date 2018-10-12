@@ -52,13 +52,11 @@ public class NavigationActivity extends AppCompatActivity
         if (areaInfo == null)
         {
             areaInfo = new AreaInfoFrag();
-            ((AreaInfoFrag) areaInfo).setCurrArea(currArea);
             fm.beginTransaction().add(R.id.areainfo, areaInfo).commit();
         }
         if (statusBar == null)
         {
             statusBar = new StatusBarFrag();
-            ((StatusBarFrag) statusBar).setPlayer(player);
             fm.beginTransaction().add(R.id.statusbar, statusBar).commit();
         }
 
@@ -127,7 +125,6 @@ public class NavigationActivity extends AppCompatActivity
                 {
                     intent = new Intent(NavigationActivity.this, WildernessActivity.class);
                 }
-                intent.putExtra("currArea", currArea);
                 startActivity(intent);
             }
         });
@@ -143,16 +140,6 @@ public class NavigationActivity extends AppCompatActivity
         optionButton = (Button) findViewById(R.id.option);
         overviewButton = (Button) findViewById(R.id.overview);
         layout = (ConstraintLayout) findViewById(R.id.navlayout);
-    }
-
-    public Area getCurrArea()
-    {
-        return currArea;
-    }
-
-    public Player getPlayer()
-    {
-        return player;
     }
 
     public void playerMoves()
@@ -171,8 +158,8 @@ public class NavigationActivity extends AppCompatActivity
         }*/
         locationView.setText(player.getPos());
         currArea = data.getArea(player.getRow(), player.getCol());
-        ((AreaInfoFrag) areaInfo).setCurrArea(currArea);
-        ((StatusBarFrag) statusBar).setPlayer(player);
+        ((AreaInfoFrag) areaInfo).update();
+        ((StatusBarFrag) statusBar).update();
     }
 
     public void playerSetup()

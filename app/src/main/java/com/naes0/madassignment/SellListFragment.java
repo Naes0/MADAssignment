@@ -87,4 +87,9 @@ public class SellListFragment extends Fragment
         }
     }
 
+    public void update()
+    {
+        adapter.notifyDataSetChanged();
+    }
+
 }

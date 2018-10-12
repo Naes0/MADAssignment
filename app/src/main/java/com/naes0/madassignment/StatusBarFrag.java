@@ -22,6 +22,8 @@ public class StatusBarFrag extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
+        data = GameData.get();
+        player = data.getPlayer();
     }
 
     @Override
@@ -52,14 +54,10 @@ public class StatusBarFrag extends Fragment
         return view;
     }
 
-    public void setPlayer(Player player)
+    public void update()
     {
-        this.player = player;
-        if (healthView != null && cashView != null && massView != null)
-        {
-            healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
-            cashView.setText("Cash: $" + player.getCash());
-            massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
-        }
+        healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
+        cashView.setText("Cash: $" + player.getCash());
+        massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
     }
 }
