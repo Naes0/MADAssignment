@@ -101,7 +101,6 @@ public class BuyListFragment extends Fragment
 
     public Item getSelectedItem()
     {
-        itemList.remove(selectedItem);
         return selectedItem;
     }
 

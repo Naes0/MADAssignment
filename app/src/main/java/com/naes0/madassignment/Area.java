@@ -104,10 +104,16 @@ public class Area implements Parcelable
         itemList.add(item);
     }
 
+    public void removeItem(Item item)
+    {
+        itemList.remove(item);
+    }
+
     public List<Item> getitemList()
     {
         return itemList;
     }
+
 
     @Override
     public int describeContents()

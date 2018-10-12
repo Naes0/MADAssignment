@@ -129,6 +129,25 @@ public class Player implements Parcelable
         addEquipMass(equip.getMassOrHealth());
     }
 
+    public boolean addItem(Item buyItem)
+    {
+        boolean boo = false;
+        if (cash >= buyItem.getValue())
+        {
+            boo = true;
+            addCash(-buyItem.getValue());
+            if (buyItem instanceof Equipment)
+            {
+                addEquipment((Equipment) buyItem);
+            }
+            else
+            {
+                addHealth(buyItem.getMassOrHealth());
+            }
+        }
+        return boo;
+    }
+
     public void removeEquipment(Equipment equip)
     {
         equipmentlist.remove(equip);

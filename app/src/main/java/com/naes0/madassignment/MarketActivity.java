@@ -22,6 +22,7 @@ public class MarketActivity extends AppCompatActivity
 
     private GameData data;
     private Player player;
+    private Area currArea;
     private Item buyItem;
     private Item sellItem;
 
@@ -31,8 +32,9 @@ public class MarketActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market);
 
-        GameData data = GameData.get();
+        data = GameData.get();
         player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
 
         buyButton = (Button) findViewById(R.id.buy);
         sellButton = (Button) findViewById(R.id.sell);
@@ -66,16 +68,13 @@ public class MarketActivity extends AppCompatActivity
             public void onClick(View v)
             {
                buyItem = ((BuyListFragment) buyFrameFrag).getSelectedItem();
-               if (buyItem instanceof Equipment)
+               if (player.addItem(buyItem)) //if player accepts item remove it from the area.
                {
-                   player.addEquipment((Equipment) buyItem);
-               }
-               else
-               {
-                   player.addHealth(buyItem.getMassOrHealth());
+                   currArea.removeItem(buyItem);
                }
                ((SellListFragment) sellFrameFrag).update();
                ((BuyListFragment) buyFrameFrag).update();
+               ((StatusBarFrag) statusBar).update();
             }
         });
 
