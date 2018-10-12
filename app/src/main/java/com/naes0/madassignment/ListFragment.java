@@ -3,24 +3,20 @@ package com.naes0.madassignment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment
 {
     private GameData data;
-    private List<Item> itemList = new ArrayList<Item>();
+    private Player player;
+    private Area currArea;
+    private List<Item> itemList;
     private ItemAdapter adapter = new ItemAdapter();
 
     @Override
@@ -28,6 +24,9 @@ public class ListFragment extends Fragment
     {
         super.onCreate(b);
         GameData data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
+        itemList = currArea.getitemList();
     }
 
     @Override
@@ -88,12 +87,5 @@ public class ListFragment extends Fragment
             return itemList.size();
         }
     }
-
-    public void setItemList(List<Item> itemList)
-    {
-        this.itemList.addAll(itemList);
-        adapter.notifyDataSetChanged();
-    }
-
 
 }

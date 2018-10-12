@@ -26,15 +26,22 @@ public class MarketActivity extends AppCompatActivity
         Area currArea = intent.getParcelableExtra("currArea");
         List<Item> itemList = currArea.getitemList();
         FragmentManager fm = getSupportFragmentManager();
-        Fragment buyFrameFrag = fm.findFragmentById(R.id.buyFrame);
+        Fragment buyFrameFrag = fm.findFragmentById(R.id.buyframe);
+        Fragment sellFrameFrag = fm.findFragmentById(R.id.sellframe);
         Fragment statusBar = fm.findFragmentById(R.id.statusbar);
 
         if (buyFrameFrag == null)
         {
             buyFrameFrag = new ListFragment();
-            ((ListFragment) buyFrameFrag).setItemList(itemList);
-            fm.beginTransaction().add(R.id.buyFrame, buyFrameFrag).commit();
+            fm.beginTransaction().add(R.id.buyframe, buyFrameFrag).commit();
         }
+
+        if (sellFrameFrag == null)
+        {
+            sellFrameFrag = new ListFragment();
+            fm.beginTransaction().add(R.id.sellframe, sellFrameFrag).commit();
+        }
+
         if (statusBar == null)
         {
             statusBar = new StatusBarFrag();
@@ -42,4 +49,5 @@ public class MarketActivity extends AppCompatActivity
             fm.beginTransaction().add(R.id.statusbar, statusBar).commit();
         }
     }
+
 }
