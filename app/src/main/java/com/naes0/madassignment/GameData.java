@@ -42,6 +42,12 @@ public class GameData implements Serializable
         grid = generateGrid();
     }
 
+    public void reset()
+    {
+        regenerate();
+        player = new Player();
+    }
+
     public static Area[][] generateGrid()
     {
         Area[][] grid = new Area[HEIGHT][WIDTH];

@@ -12,6 +12,8 @@ public class MarketActivity extends AppCompatActivity
 {
     private GameData data;
     private Player player;
+    private Item buyItem;
+    private Item sellItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,13 +34,13 @@ public class MarketActivity extends AppCompatActivity
 
         if (buyFrameFrag == null)
         {
-            buyFrameFrag = new ListFragment();
+            buyFrameFrag = new BuyListFragment();
             fm.beginTransaction().add(R.id.buyframe, buyFrameFrag).commit();
         }
 
         if (sellFrameFrag == null)
         {
-            sellFrameFrag = new ListFragment();
+            sellFrameFrag = new SellListFragment();
             fm.beginTransaction().add(R.id.sellframe, sellFrameFrag).commit();
         }
 

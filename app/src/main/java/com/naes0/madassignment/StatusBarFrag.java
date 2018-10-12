@@ -44,7 +44,7 @@ public class StatusBarFrag extends Fragment
             public void onClick(View view)
             {
                 GameData data = GameData.get();
-                data.regenerate();
+                data.reset();
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });

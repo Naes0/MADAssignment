@@ -2,38 +2,37 @@ package com.naes0.madassignment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.List;
 
-public class ListFragment extends Fragment
+public class SellListFragment extends Fragment
 {
     private GameData data;
     private Player player;
-    private Area currArea;
-    private List<Item> itemList;
-    private ItemAdapter adapter = new ItemAdapter();
+    private List<Equipment> equipmentList;
+    private ItemAdapter adapter;
 
     @Override
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        GameData data = GameData.get();
+        data = GameData.get();
         player = data.getPlayer();
-        currArea = data.getArea(player.getRow(), player.getCol());
-        itemList = currArea.getitemList();
+        equipmentList = player.getEquipmentlist();
+        adapter = new ItemAdapter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup ui, Bundle bundle)
     {
         View view = inflater.inflate(R.layout.list, ui,false);
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.buyRecyclerView);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ItemAdapter();
         rv.setAdapter(adapter);
@@ -45,7 +44,7 @@ public class ListFragment extends Fragment
         private TextView name;
         private TextView value;
         private TextView masshealth;
-        private Item item;
+        private Equipment equipment;
 
         public ItemViewHolder(LayoutInflater li, ViewGroup parent)
         {
@@ -56,12 +55,12 @@ public class ListFragment extends Fragment
             masshealth = (TextView) itemView.findViewById(R.id.masshealth);
         }
 
-        public void bind(Item item)
+        public void bind(Equipment equipment)
         {
-            name.setText(item.getDesc());
-            value.setText("Value: " + item.getValue());
-            masshealth.setText("Mass: " + Double.toString(item.getMassOrHealth()));
-            this.item = item;
+            name.setText(equipment.getDesc());
+            value.setText("Value: " + equipment.getValue());
+            masshealth.setText("Mass: " + Double.toString(equipment.getMassOrHealth()));
+            this.equipment = equipment;
         }
     }
 
@@ -78,13 +77,13 @@ public class ListFragment extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
-            holder.bind(itemList.get(position));
+            holder.bind(equipmentList.get(position));
         }
 
         @Override
         public int getItemCount()
         {
-            return itemList.size();
+            return equipmentList.size();
         }
     }
 
