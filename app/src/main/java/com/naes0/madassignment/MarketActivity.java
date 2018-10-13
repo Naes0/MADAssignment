@@ -92,7 +92,7 @@ public class MarketActivity extends AppCompatActivity
                 if(sellItem != null)
                 {
                     player.removeEquipment(sellItem);
-                    player.addCash(sellItem.getValue());
+                    player.addCash( (int) ((double) sellItem.getValue()*0.75) );
                     currArea.addItem(sellItem);
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
