@@ -24,7 +24,7 @@ public class MarketActivity extends AppCompatActivity
     private Player player;
     private Area currArea;
     private Item buyItem;
-    private Item sellItem;
+    private Equipment sellItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,9 +77,28 @@ public class MarketActivity extends AppCompatActivity
                    ((SellListFragment) sellFrameFrag).update();
                    ((BuyListFragment) buyFrameFrag).update();
                    ((StatusBarFrag) statusBar).update();
-                   buyItem = null;
+                   ((BuyListFragment) buyFrameFrag).clearSelection();
                }
 
+            }
+        });
+
+        sellButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
+                if(sellItem != null)
+                {
+                    player.removeEquipment(sellItem);
+                    player.addCash(sellItem.getValue());
+                    currArea.addItem(sellItem);
+                    ((SellListFragment) sellFrameFrag).update();
+                    ((BuyListFragment) buyFrameFrag).update();
+                    ((StatusBarFrag) statusBar).update();
+                    ((SellListFragment) sellFrameFrag).clearSelection();
+                }
             }
         });
 

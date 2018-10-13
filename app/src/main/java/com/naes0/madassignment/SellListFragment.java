@@ -17,6 +17,7 @@ public class SellListFragment extends Fragment
     private Player player;
     private List<Equipment> equipmentList;
     private ItemAdapter adapter;
+    private Equipment selectedEquipment;
 
     @Override
     public void onCreate(Bundle b)
@@ -53,6 +54,15 @@ public class SellListFragment extends Fragment
             name = (TextView) itemView.findViewById(R.id.itemname);
             value = (TextView) itemView.findViewById(R.id.value);
             masshealth = (TextView) itemView.findViewById(R.id.masshealth);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    selectedEquipment = equipment;
+                }
+            });
         }
 
         public void bind(Equipment equipment)
@@ -92,4 +102,13 @@ public class SellListFragment extends Fragment
         adapter.notifyDataSetChanged();
     }
 
+    public Equipment getSelectedEquipment()
+    {
+        return selectedEquipment;
+    }
+
+    public void clearSelection()
+    {
+        selectedEquipment = null;
+    }
 }

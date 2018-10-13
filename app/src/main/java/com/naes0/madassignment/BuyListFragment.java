@@ -104,6 +104,11 @@ public class BuyListFragment extends Fragment
         return selectedItem;
     }
 
+    public void clearSelection()
+    {
+        selectedItem = null;
+    }
+
     public void update()
     {
         adapter.notifyDataSetChanged();
