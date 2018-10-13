@@ -68,13 +68,18 @@ public class MarketActivity extends AppCompatActivity
             public void onClick(View v)
             {
                buyItem = ((BuyListFragment) buyFrameFrag).getSelectedItem();
-               if (player.addItem(buyItem)) //if player accepts item remove it from the area.
+               if (buyItem != null)
                {
-                   currArea.removeItem(buyItem);
+                   if (player.addItem(buyItem)) //if player accepts item remove it from the area.
+                   {
+                       currArea.removeItem(buyItem);
+                   }
+                   ((SellListFragment) sellFrameFrag).update();
+                   ((BuyListFragment) buyFrameFrag).update();
+                   ((StatusBarFrag) statusBar).update();
+                   buyItem = null;
                }
-               ((SellListFragment) sellFrameFrag).update();
-               ((BuyListFragment) buyFrameFrag).update();
-               ((StatusBarFrag) statusBar).update();
+
             }
         });
 
