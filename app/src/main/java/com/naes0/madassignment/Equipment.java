@@ -1,6 +1,8 @@
 package com.naes0.madassignment;
 
 
+import android.content.Context;
+
 public class Equipment extends Item
 {
     private double mass;
@@ -33,7 +35,7 @@ public class Equipment extends Item
     }
 
     @Override
-    public void use()
+    public void use(Context c)
     {
     }
 

@@ -161,7 +161,7 @@ public class NavigationActivity extends AppCompatActivity
     {
         player.addEquipment(new Equipment("Sword", 10, 5));
         player.addEquipment(new Equipment("Shield", 5, 3));
-        player.addEquipment(new BenKenobi("BenKenobi", 50, 20 ));
+        player.addEquipment(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
         player.addCash(50);
         currArea = data.getArea(player.getRow(), player.getCol());
         locationView.setText(player.getPos());

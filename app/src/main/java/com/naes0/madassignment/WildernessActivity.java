@@ -122,7 +122,7 @@ public class WildernessActivity extends AppCompatActivity
                 dropItem = ((SellListFragment) dropFrameFrag).getSelectedEquipment();
                 if(dropItem != null && dropItem.isUsable())
                 {
-                    dropItem.use();
+                    dropItem.use(WildernessActivity.this);
                     player.removeEquipment(dropItem);
                     update();
                     ((SellListFragment) dropFrameFrag).update();

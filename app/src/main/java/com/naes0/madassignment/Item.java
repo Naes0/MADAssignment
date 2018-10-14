@@ -1,5 +1,7 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
+
 public abstract class Item
 {
     private String desc;
@@ -28,5 +30,5 @@ public abstract class Item
     public abstract double getMassOrHealth();
     public abstract String getStringType();
     public abstract String getStringHealthMass();
-    public abstract void use();
+    public abstract void use(Context c);
 }

@@ -1,5 +1,7 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
+
 public class Food extends Item
 {
     private double health;
@@ -30,7 +32,7 @@ public class Food extends Item
     }
 
     @Override
-    public void use()
+    public void use(Context c)
     {
 
     }

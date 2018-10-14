@@ -37,6 +37,7 @@ public class SOSFrag extends Fragment
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ItemAdapter();
         rv.setAdapter(adapter);
+
         return view;
     }
 
@@ -95,12 +96,12 @@ public class SOSFrag extends Fragment
         int pCol = player.getCol();
 
 
-        int upperRow = Math.max(pRow+2, GameData.HEIGHT);
+        int upperRow = Math.min(pRow+2, GameData.HEIGHT);
         int upperCol = Math.max(0, pCol-2);
-        int lowerRow = Math.min(0, pRow-2);
+        int lowerRow = Math.max(0, pRow-2);
         int lowerCol = Math.min(pCol+2, GameData.WIDTH);
 
-        for(int i = upperRow; i < lowerRow; i++)
+        for(int i = upperRow; i > lowerRow; i--)
         {
             for(int j = upperCol; j < lowerCol; j++ )
             {

@@ -12,7 +12,7 @@ public class ImprobDrive extends Equipment
     }
 
     @Override
-    public void use()
+    public void use(Context c)
     {
         GameData data = GameData.get();
         data.regenerate();

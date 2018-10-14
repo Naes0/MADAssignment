@@ -1,5 +1,7 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
+
 import java.util.List;
 
 public class BenKenobi extends Equipment
@@ -11,7 +13,7 @@ public class BenKenobi extends Equipment
     }
 
     @Override
-    public void use()
+    public void use(Context c)
     {
         GameData data = GameData.get();
         Player player = data.getPlayer();

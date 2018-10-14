@@ -120,7 +120,7 @@ public class MarketActivity extends AppCompatActivity
                 sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
                 if(sellItem != null && sellItem.isUsable())
                 {
-                    sellItem.use();
+                    sellItem.use(MarketActivity.this);
                     player.removeEquipment(sellItem);
                     update();
                     ((SellListFragment) sellFrameFrag).update();
