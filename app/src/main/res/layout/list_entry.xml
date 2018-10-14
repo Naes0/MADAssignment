@@ -8,8 +8,9 @@
         android:id="@+id/itemname"
         android:layout_width="187dp"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
         android:layout_weight="1"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:text="TextView" />
 
     <TextView
@@ -17,15 +18,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="20dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/masshealth"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textSize="20dp"
-        android:text="TextView" />
+        android:layout_marginRight="5dp"
+        android:text="TextView"
+        android:textSize="15dp" />
 
 </LinearLayout>
