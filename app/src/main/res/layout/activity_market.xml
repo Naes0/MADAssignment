@@ -23,6 +23,23 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="Inventory"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@id/sellframe"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buy"></TextView>
+
     <Button
         android:id="@+id/buy"
         android:layout_width="wrap_content"
@@ -34,7 +51,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
         android:text="Buy"
-        app:layout_constraintBottom_toTopOf="@+id/sellframe"
+        app:layout_constraintBottom_toTopOf="@+id/inventory"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buyframe"/>
@@ -66,7 +83,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buy"
+        app:layout_constraintTop_toBottomOf="@id/inventory"
         app:layout_constraintBottom_toTopOf="@id/sell"
         app:layout_constraintHorizontal_bias="0.0"
         tools:layout_editor_absoluteY="314dp">
@@ -82,6 +99,8 @@
         app:layout_constraintRight_toRightOf="parent">
     </FrameLayout>
 
+
+
     <Button
         android:id="@+id/sell"
         android:layout_width="wrap_content"
@@ -89,43 +108,36 @@
         android:layout_gravity="center"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Sell"
         app:layout_constraintBottom_toTopOf="@+id/statusbar"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sellframe" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/use"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="8dp"
         android:text="use"
-        app:layout_constraintBottom_toTopOf="@+id/statusbar"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/sellframe"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/sellframe"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/sell"
+        app:layout_constraintBottom_toTopOf="@id/statusbar"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="588dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/leave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="8dp"
         android:text="leave"
-        app:layout_constraintBottom_toTopOf="@+id/statusbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sellframe"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@id/sellframe"
+        app:layout_constraintRight_toLeftOf="@id/sell"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/statusbar"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="589dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,20 +1,15 @@
 package com.naes0.madassignment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class NavigationActivity extends AppCompatActivity
 {
@@ -166,6 +161,7 @@ public class NavigationActivity extends AppCompatActivity
     {
         player.addEquipment(new Equipment("Sword", 10, 5));
         player.addEquipment(new Equipment("Shield", 5, 3));
+        player.addEquipment(new BenKenobi("BenKenobi", 50, 20 ));
         player.addCash(50);
         currArea = data.getArea(player.getRow(), player.getCol());
         locationView.setText(player.getPos());

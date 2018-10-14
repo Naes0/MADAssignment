@@ -14,7 +14,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/value"
+        android:id="@+id/eastwest"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -22,7 +22,7 @@
         android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/masshealth"
+        android:id="@+id/northsouth"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"

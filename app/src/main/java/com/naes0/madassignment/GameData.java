@@ -1,7 +1,6 @@
 package com.naes0.madassignment;
 
 import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ public class GameData implements Serializable
     private Area grid[][];
     private Player player;
     private static List<Item> itemList;
+    private static List<Item> winningItemList;
 
     private static Random rand = new Random();
     private static GameData instance = null;
@@ -29,17 +29,17 @@ public class GameData implements Serializable
         return instance;
     }
 
-
     public GameData()
     {
         this.player = new Player();
         this.itemList = itemListSet();
-        this.grid = generateGrid();
+        this.winningItemList = winningItemListSet();
+        this.grid = generateGrid(this.player);
     }
 
     public void regenerate()
     {
-        grid = generateGrid();
+        grid = generateGrid(player);
     }
 
     public void reset()
@@ -48,7 +48,7 @@ public class GameData implements Serializable
         player = new Player();
     }
 
-    public static Area[][] generateGrid()
+    public static Area[][] generateGrid(Player player)
     {
         Area[][] grid = new Area[HEIGHT][WIDTH];
         for(int i = 0; i < HEIGHT; i++)
@@ -56,11 +56,24 @@ public class GameData implements Serializable
             for (int j = 0; j < WIDTH; j++)
             {
                 grid[i][j] = new Area(generateItemList());
-                Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
+                //Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
             }
         }
         grid[0][0].setExplored(true);
+        setRandomWinningItems(grid,player);
+        for(int i = 0; i < HEIGHT; i++)
+        {
+            for (int j = 0; j < WIDTH; j++)
+            {
+                Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
+            }
+        }
         return grid;
+    }
+
+    public Area getCurrArea()
+    {
+        return grid[player.getRow()][player.getCol()];
     }
 
     public Area getArea(int x, int y)
@@ -79,25 +92,31 @@ public class GameData implements Serializable
         itemList.add(new Food("Apple", 5, 5 ));
         itemList.add(new Food("Mango", 10, 15 ));
         itemList.add(new Food("Durian", 20, 35 ));
+        itemList.add(new Food("Broccoli",5, -10));
         //items
         itemList.add(new Equipment("Boots of Swiftness", 20, 5 ));
         itemList.add(new Equipment("BF Sword", 15, 25 ));
         //usable items
         itemList.add(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
-        itemList.add(new ImprobDrive("Improbability Drive", 10, (int) -Math.PI));
+        itemList.add(new ImprobDrive("Improbability Drive", 10, -Math.PI));
         itemList.add(new BenKenobi("BenKenobi", 50, 20 ));
-        //winning items
-        itemList.add(new Equipment("Jade Monkey", 50, 7 ));
-        itemList.add(new Equipment("Roadmap", 50, 3 ));
-        itemList.add(new Equipment("Ice Scraper", 50, 12 ));
 
+        return itemList;
+    }
+
+    public List<Item> winningItemListSet()
+    {
+        List<Item> itemList = new ArrayList<Item>();
+        itemList.add(new Equipment("Jade Monkey", 10, 7 ));
+        itemList.add(new Equipment("Roadmap", 10, 3 ));
+        itemList.add(new Equipment("Ice Scraper", 10, 12 ));
         return itemList;
     }
 
     public static List<Item> generateItemList()
     {
         List<Item> areaItemList = new ArrayList<Item>();
-        int sizeOfList = rand.nextInt(itemList.size()-3 + 1);
+        int sizeOfList = rand.nextInt(itemList.size() + 1);
         for(int i = 0; i < sizeOfList; i++)
         {
             areaItemList.add(getRandomItem());
@@ -105,11 +124,25 @@ public class GameData implements Serializable
         return areaItemList;
     }
 
+    public static void setRandomWinningItems(Area[][] grid, Player player)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            int randomRow = rand.nextInt(HEIGHT);
+            int randomCol = rand.nextInt(WIDTH);
+            Boolean boo = !player.contains(winningItemList.get(i));
+            if(boo)
+            {
+                grid[randomRow][randomCol].addItem(winningItemList.get(i));
+            }
+        }
+    }
+
     //weighted item chances
     public static Item getRandomItem()
     {
         Item item = null;
-        double randomDouble = rand.nextDouble() * 0.5;
+        double randomDouble = rand.nextDouble() * 0.55;
         if(randomDouble <= 0.15)
         {
             item = itemList.get(0);//apple
@@ -122,25 +155,29 @@ public class GameData implements Serializable
         {
             item = itemList.get(2);//Durian
         }
+        if( randomDouble > 0.50 && randomDouble <= 0.55)
+        {
+            item = itemList.get(3);//broccoli
+        }
         if( randomDouble > 0.30 && randomDouble <= 0.35)
         {
-            item = itemList.get(3);//boots
+            item = itemList.get(4);//boots
         }
         if( randomDouble > 0.35 && randomDouble <= 0.40)
         {
-            item = itemList.get(4);//bf sword
+            item = itemList.get(5);//bf sword
         }
         if( randomDouble > 0.40 && randomDouble <= 0.45)
         {
-            item = itemList.get(5);//p smelloscope
+            item = itemList.get(6);//p smelloscope
         }
         if( randomDouble > 0.45 && randomDouble <= 0.475)
         {
-            item = itemList.get(6);//improbability drive
+            item = itemList.get(7);//improbability drive
         }
         if( randomDouble > 0.475 && randomDouble <= 0.50)
         {
-            item = itemList.get(7);//benkenobi
+            item = itemList.get(8);//benkenobi
         }
         return item;
     }

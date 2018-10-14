@@ -1,23 +1,27 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.List;
 
-public class BenKenobi extends Equipment implements Parcelable
+public class BenKenobi extends Equipment
 {
     public BenKenobi(String desc, int value, int mass)
     {
         super(desc, value, mass);
-    }
-
-    protected BenKenobi(Parcel in)
-    {
-        super(in);
+        setUsable(true);
     }
 
     @Override
     public void use()
     {
-        //get all items in town and wilderness free.
+        GameData data = GameData.get();
+        Player player = data.getPlayer();
+        Area currArea = data.getCurrArea();
+        List<Item> itemList = currArea.getitemList();
+        for (Item item : itemList)
+        {
+            player.addItemNoCash(item);
+        }
+        itemList.clear();
     }
+
 }

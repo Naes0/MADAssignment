@@ -1,21 +1,20 @@
 package com.naes0.madassignment;
 
-import android.content.Intent;
-import android.media.audiofx.DynamicsProcessing;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
-import java.util.List;
 
 public class MarketActivity extends AppCompatActivity
 {
     private Button buyButton;
     private Button sellButton;
+    private Button leaveButton;
+    private Button useButton;
     private Fragment buyFrameFrag;
     private Fragment sellFrameFrag;
     private Fragment statusBar;
@@ -38,6 +37,8 @@ public class MarketActivity extends AppCompatActivity
 
         buyButton = (Button) findViewById(R.id.buy);
         sellButton = (Button) findViewById(R.id.sell);
+        leaveButton = (Button) findViewById(R.id.leave);
+        useButton = (Button) findViewById(R.id.use);
 
         FragmentManager fm = getSupportFragmentManager();
         buyFrameFrag = fm.findFragmentById(R.id.buyframe);
@@ -92,7 +93,7 @@ public class MarketActivity extends AppCompatActivity
                 if(sellItem != null)
                 {
                     player.removeEquipment(sellItem);
-                    player.addCash( (int) ((double) sellItem.getValue()*0.75) );
+                    player.addCash((int) ((double)sellItem.getValue()*0.75));
                     currArea.addItem(sellItem);
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
@@ -101,6 +102,40 @@ public class MarketActivity extends AppCompatActivity
                 }
             }
         });
+
+        leaveButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+
+        useButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
+                if(sellItem != null && sellItem.isUsable())
+                {
+                    sellItem.use();
+                    player.removeEquipment(sellItem);
+                    update();
+                    ((SellListFragment) sellFrameFrag).update();
+                    ((BuyListFragment) buyFrameFrag).update();
+                    ((SellListFragment) sellFrameFrag).clearSelection();
+                }
+            }
+        });
+    }
+
+    public void update()
+    {
+        data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
 
     }
 

@@ -1,9 +1,6 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public abstract class Item implements Parcelable
+public abstract class Item
 {
     private String desc;
     private int value;
@@ -28,11 +25,6 @@ public abstract class Item implements Parcelable
         return value;
     }
 
-    public void writeToParcel(Parcel parcel, int i)
-    {
-        parcel.writeString(desc);
-        parcel.writeInt(value);
-    }
     public abstract double getMassOrHealth();
     public abstract String getStringType();
     public abstract String getStringHealthMass();

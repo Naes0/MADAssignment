@@ -148,6 +148,18 @@ public class Player implements Parcelable
         return boo;
     }
 
+    public void addItemNoCash(Item buyItem)
+    {
+        if (buyItem instanceof Equipment)
+        {
+            addEquipment((Equipment) buyItem);
+        }
+        else
+        {
+            addHealth(buyItem.getMassOrHealth());
+        }
+    }
+
     public void removeEquipment(Equipment equip)
     {
         equipmentlist.remove(equip);
@@ -161,6 +173,19 @@ public class Player implements Parcelable
         {
             throw new DecreaseHealthException("Health is 0");
         }
+    }
+
+    public boolean contains(Item item)
+    {
+        boolean boo = false;
+        for (Equipment e : equipmentlist)
+        {
+            if(e.getDesc().equals(item.getDesc()))
+            {
+                boo = true;
+            }
+        }
+        return boo;
     }
 
     @Override

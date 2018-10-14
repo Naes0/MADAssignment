@@ -1,40 +1,18 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
-public class Equipment extends Item implements Parcelable
+public class Equipment extends Item
 {
     private double mass;
+    private boolean usable;
 
-    public Equipment(String desc, int value, int mass)
+    public Equipment(String desc, int value, double mass)
     {
+        this.usable = false;
         this.mass = mass;
         super.setDesc(desc);
         super.setValue(value);
     }
-
-    protected Equipment(Parcel in)
-    {
-        mass = in.readDouble();
-        super.setDesc(in.readString());
-        super.setValue(in.readInt());
-    }
-
-    public static final Creator<Equipment> CREATOR = new Creator<Equipment>()
-    {
-        @Override
-        public Equipment createFromParcel(Parcel in)
-        {
-            return new Equipment(in);
-        }
-
-        @Override
-        public Equipment[] newArray(int size)
-        {
-            return new Equipment[size];
-        }
-    };
 
     @Override
     public double getMassOrHealth()
@@ -59,16 +37,13 @@ public class Equipment extends Item implements Parcelable
     {
     }
 
-    @Override
-    public int describeContents()
+    public boolean isUsable()
     {
-        return 0;
+        return usable;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i)
+    public void setUsable(Boolean boo)
     {
-        parcel.writeDouble(mass);
-        super.writeToParcel(parcel, i);
+        usable = boo;
     }
 }
