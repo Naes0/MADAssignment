@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,21 +97,21 @@ public class SOSFrag extends Fragment
         int pCol = player.getCol();
 
 
-        int upperRow = Math.min(pRow+2, GameData.HEIGHT);
+        int upperRow = Math.min(pRow+2, GameData.HEIGHT-1);
         int upperCol = Math.max(0, pCol-2);
         int lowerRow = Math.max(0, pRow-2);
-        int lowerCol = Math.min(pCol+2, GameData.WIDTH);
+        int lowerCol = Math.min(pCol+2, GameData.WIDTH-1);
 
-        for(int i = upperRow; i > lowerRow; i--)
+        for(int i = upperRow; i >= lowerRow; i--)
         {
-            for(int j = upperCol; j < lowerCol; j++ )
+            for(int j = upperCol; j <= lowerCol; j++ )
             {
-                combinedList.addAll(data.getArea(i,j).getitemList());
+                itemList.addAll(data.getArea(i,j).getitemList());
+                Log.d("ITEM","grid[" + i + "][" +j +"] =" + data.getArea(i,j).printItemList() );
             }
         }
         return itemList;
     }
-
 
     public void update()
     {
