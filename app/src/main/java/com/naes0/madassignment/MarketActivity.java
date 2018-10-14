@@ -122,15 +122,20 @@ public class MarketActivity extends AppCompatActivity
                 {
                     sellItem.use();
                     player.removeEquipment(sellItem);
+                    update();
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
                     ((SellListFragment) sellFrameFrag).clearSelection();
                 }
-
             }
         });
+    }
 
-
+    public void update()
+    {
+        data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
 
     }
 

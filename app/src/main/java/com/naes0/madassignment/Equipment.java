@@ -6,7 +6,7 @@ public class Equipment extends Item
     private double mass;
     private boolean usable;
 
-    public Equipment(String desc, int value, int mass)
+    public Equipment(String desc, int value, double mass)
     {
         this.usable = false;
         this.mass = mass;

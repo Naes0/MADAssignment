@@ -148,6 +148,18 @@ public class Player implements Parcelable
         return boo;
     }
 
+    public void addItemNoCash(Item buyItem)
+    {
+        if (buyItem instanceof Equipment)
+        {
+            addEquipment((Equipment) buyItem);
+        }
+        else
+        {
+            addHealth(buyItem.getMassOrHealth());
+        }
+    }
+
     public void removeEquipment(Equipment equip)
     {
         equipmentlist.remove(equip);

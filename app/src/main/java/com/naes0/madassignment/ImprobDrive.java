@@ -1,20 +1,22 @@
 package com.naes0.madassignment;
 
 
+import android.content.Context;
+
 public class ImprobDrive extends Equipment
 {
-    public ImprobDrive(String desc, int value, int mass)
+    public ImprobDrive(String desc, int value, double mass)
     {
         super(desc, value, mass);
         setUsable(true);
     }
-
 
     @Override
     public void use()
     {
         GameData data = GameData.get();
         data.regenerate();
+
         //regenerate map and items, player keeps items.
     }
 }

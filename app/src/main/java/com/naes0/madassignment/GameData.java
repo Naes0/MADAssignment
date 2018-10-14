@@ -71,6 +71,11 @@ public class GameData implements Serializable
         return grid;
     }
 
+    public Area getCurrArea()
+    {
+        return grid[player.getRow()][player.getCol()];
+    }
+
     public Area getArea(int x, int y)
     {
         return grid[x][y];
@@ -87,12 +92,13 @@ public class GameData implements Serializable
         itemList.add(new Food("Apple", 5, 5 ));
         itemList.add(new Food("Mango", 10, 15 ));
         itemList.add(new Food("Durian", 20, 35 ));
+        itemList.add(new Food("Broccoli",5, -10));
         //items
         itemList.add(new Equipment("Boots of Swiftness", 20, 5 ));
         itemList.add(new Equipment("BF Sword", 15, 25 ));
         //usable items
         itemList.add(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
-        itemList.add(new ImprobDrive("Improbability Drive", 10, (int) -Math.PI));
+        itemList.add(new ImprobDrive("Improbability Drive", 10, -Math.PI));
         itemList.add(new BenKenobi("BenKenobi", 50, 20 ));
 
         return itemList;
@@ -136,7 +142,7 @@ public class GameData implements Serializable
     public static Item getRandomItem()
     {
         Item item = null;
-        double randomDouble = rand.nextDouble() * 0.5;
+        double randomDouble = rand.nextDouble() * 0.55;
         if(randomDouble <= 0.15)
         {
             item = itemList.get(0);//apple
@@ -149,25 +155,29 @@ public class GameData implements Serializable
         {
             item = itemList.get(2);//Durian
         }
+        if( randomDouble > 0.50 && randomDouble <= 0.55)
+        {
+            item = itemList.get(3);//broccoli
+        }
         if( randomDouble > 0.30 && randomDouble <= 0.35)
         {
-            item = itemList.get(3);//boots
+            item = itemList.get(4);//boots
         }
         if( randomDouble > 0.35 && randomDouble <= 0.40)
         {
-            item = itemList.get(4);//bf sword
+            item = itemList.get(5);//bf sword
         }
         if( randomDouble > 0.40 && randomDouble <= 0.45)
         {
-            item = itemList.get(5);//p smelloscope
+            item = itemList.get(6);//p smelloscope
         }
         if( randomDouble > 0.45 && randomDouble <= 0.475)
         {
-            item = itemList.get(6);//improbability drive
+            item = itemList.get(7);//improbability drive
         }
         if( randomDouble > 0.475 && randomDouble <= 0.50)
         {
-            item = itemList.get(7);//benkenobi
+            item = itemList.get(8);//benkenobi
         }
         return item;
     }

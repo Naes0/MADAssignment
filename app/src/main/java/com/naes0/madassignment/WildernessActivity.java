@@ -31,9 +31,7 @@ public class WildernessActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wilderness);
 
-        data = GameData.get();
-        player = data.getPlayer();
-        currArea = data.getArea(player.getRow(), player.getCol());
+        update();
 
         pickButton = (Button) findViewById(R.id.pickup);
         dropButton = (Button) findViewById(R.id.drop);
@@ -89,7 +87,7 @@ public class WildernessActivity extends AppCompatActivity
             }
         });
 
-        dropButton.setOnClickListener(new View.OnClickListener()
+        dropButton.setOnClickListener( new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -122,10 +120,11 @@ public class WildernessActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 dropItem = ((SellListFragment) dropFrameFrag).getSelectedEquipment();
-                if(dropItem != null)
+                if(dropItem != null && dropItem.isUsable())
                 {
                     dropItem.use();
                     player.removeEquipment(dropItem);
+                    update();
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
                     ((SellListFragment) dropFrameFrag).clearSelection();
@@ -133,5 +132,12 @@ public class WildernessActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    public void update()
+    {
+        data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
     }
 }

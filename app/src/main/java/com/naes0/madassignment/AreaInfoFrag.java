@@ -17,6 +17,7 @@ public class AreaInfoFrag extends Fragment
     private TextView descView;
     private EditText descEdit;
     private Switch starred;
+
     private Area currArea;
     private GameData data;
     private Player player;

@@ -161,8 +161,7 @@ public class NavigationActivity extends AppCompatActivity
     {
         player.addEquipment(new Equipment("Sword", 10, 5));
         player.addEquipment(new Equipment("Shield", 5, 3));
-        player.addEquipment(new Equipment("Ice Scraper", 10, 12 ));
-        player.addEquipment(new ImprobDrive("Improbability Drive", 10, (int) -Math.PI));
+        player.addEquipment(new BenKenobi("BenKenobi", 50, 20 ));
         player.addCash(50);
         currArea = data.getArea(player.getRow(), player.getCol());
         locationView.setText(player.getPos());
