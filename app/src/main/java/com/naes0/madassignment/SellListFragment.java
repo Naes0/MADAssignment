@@ -61,7 +61,6 @@ public class SellListFragment extends Fragment
                 public void onClick(View v)
                 {
                     selectedEquipment = equipment;
-                    if (selectedEquipment instanceof ImprobDrive || selectedEquipment instanceof PortableSmellOScope || selectedEquipment instanceof BenKenobi )
                 }
             });
         }

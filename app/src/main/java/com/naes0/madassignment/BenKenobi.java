@@ -1,18 +1,11 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class BenKenobi extends Equipment implements Parcelable
+public class BenKenobi extends Equipment
 {
     public BenKenobi(String desc, int value, int mass)
     {
         super(desc, value, mass);
-    }
-
-    protected BenKenobi(Parcel in)
-    {
-        super(in);
+        setUsable(true);
     }
 
     @Override
@@ -20,4 +13,5 @@ public class BenKenobi extends Equipment implements Parcelable
     {
         //get all items in town and wilderness free.
     }
+
 }

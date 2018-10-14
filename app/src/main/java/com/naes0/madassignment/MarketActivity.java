@@ -1,17 +1,13 @@
 package com.naes0.madassignment;
 
-import android.content.Intent;
-import android.media.audiofx.DynamicsProcessing;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
-import java.io.Serializable;
-import java.util.List;
 
 public class MarketActivity extends AppCompatActivity
 {
@@ -122,7 +118,7 @@ public class MarketActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
-                if(sellItem != null)
+                if(sellItem != null && sellItem.isUsable())
                 {
                     sellItem.use();
                     player.removeEquipment(sellItem);
@@ -130,6 +126,7 @@ public class MarketActivity extends AppCompatActivity
                     ((BuyListFragment) buyFrameFrag).update();
                     ((SellListFragment) sellFrameFrag).clearSelection();
                 }
+
             }
         });
 
