@@ -96,7 +96,6 @@ public class SOSFrag extends Fragment
         int pRow = player.getRow();
         int pCol = player.getCol();
 
-
         int upperRow = Math.min(pRow+2, GameData.HEIGHT-1);
         int upperCol = Math.max(0, pCol-2);
         int lowerRow = Math.max(0, pRow-2);
@@ -106,6 +105,7 @@ public class SOSFrag extends Fragment
         {
             for(int j = upperCol; j <= lowerCol; j++ )
             {
+                itemList.add(new Equipment("Grid["+i+"]["+j+"]",0,0));
                 itemList.addAll(data.getArea(i,j).getitemList());
                 Log.d("ITEM","grid[" + i + "][" +j +"] =" + data.getArea(i,j).printItemList() );
             }

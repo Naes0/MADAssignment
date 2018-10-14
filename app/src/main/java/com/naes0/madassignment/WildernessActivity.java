@@ -110,6 +110,8 @@ public class WildernessActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });

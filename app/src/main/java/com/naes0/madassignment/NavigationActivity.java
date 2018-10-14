@@ -30,6 +30,8 @@ public class NavigationActivity extends AppCompatActivity
     private GameData data;
     private Area currArea;
 
+    public static final int REQUEST_CODE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -120,9 +122,18 @@ public class NavigationActivity extends AppCompatActivity
                 {
                     intent = new Intent(NavigationActivity.this, WildernessActivity.class);
                 }
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            ((StatusBarFrag) statusBar).update();
+        }
     }
 
     public void initialiseComponents()
@@ -152,7 +163,7 @@ public class NavigationActivity extends AppCompatActivity
             startActivity(new Intent(NavigationActivity.this, MainActivity.class));
         }*/
         locationView.setText(player.getPos());
-        currArea = data.getArea(player.getRow(), player.getCol());
+        currArea = data.getCurrArea();
         ((AreaInfoFrag) areaInfo).update();
         ((StatusBarFrag) statusBar).update();
     }

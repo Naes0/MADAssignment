@@ -38,7 +38,7 @@ public class StatusBarFrag extends Fragment
 
         healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
         cashView.setText("Cash: $" + player.getCash());
-        massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
+        massView.setText("Mass: " + player.getEquipMass() + " kg");
 
         restartButton.setOnClickListener(new View.OnClickListener()
         {
@@ -58,6 +58,6 @@ public class StatusBarFrag extends Fragment
     {
         healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
         cashView.setText("Cash: $" + player.getCash());
-        massView.setText("Mass: " + Double.toString(player.getEquipMass()) + " kg");
+        massView.setText("Mass: " + player.getEquipMass() + " kg");
     }
 }

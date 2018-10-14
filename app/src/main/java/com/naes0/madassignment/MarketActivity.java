@@ -1,6 +1,7 @@
 package com.naes0.madassignment;
 
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -108,6 +109,8 @@ public class MarketActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
