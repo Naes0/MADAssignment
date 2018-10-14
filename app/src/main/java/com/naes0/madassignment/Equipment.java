@@ -6,9 +6,10 @@ import android.os.Parcelable;
 public class Equipment extends Item implements Parcelable
 {
     private double mass;
-
+    private boolean usable;
     public Equipment(String desc, int value, int mass)
     {
+        this.usable = false;
         this.mass = mass;
         super.setDesc(desc);
         super.setValue(value);
@@ -16,6 +17,7 @@ public class Equipment extends Item implements Parcelable
 
     protected Equipment(Parcel in)
     {
+        usable = in.
         mass = in.readDouble();
         super.setDesc(in.readString());
         super.setValue(in.readInt());

@@ -18,6 +18,8 @@ public class ImprobDrive extends Equipment implements Parcelable
     @Override
     public void use()
     {
+        GameData data = GameData.get();
+        data.regenerate();
         //regenerate map and items, player keeps items.
     }
 }

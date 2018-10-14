@@ -163,6 +163,19 @@ public class Player implements Parcelable
         }
     }
 
+    public boolean contains(Item item)
+    {
+        boolean boo = false;
+        for (Equipment e : equipmentlist)
+        {
+            if(e.getDesc().equals(item.getDesc()))
+            {
+                boo = true;
+            }
+        }
+        return boo;
+    }
+
     @Override
     public int describeContents()
     {

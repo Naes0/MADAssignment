@@ -61,6 +61,7 @@ public class SellListFragment extends Fragment
                 public void onClick(View v)
                 {
                     selectedEquipment = equipment;
+                    if (selectedEquipment instanceof ImprobDrive || selectedEquipment instanceof PortableSmellOScope || selectedEquipment instanceof BenKenobi )
                 }
             });
         }
@@ -99,6 +100,9 @@ public class SellListFragment extends Fragment
 
     public void update()
     {
+        data = GameData.get();
+        player = data.getPlayer();
+        equipmentList = player.getEquipmentlist();
         adapter.notifyDataSetChanged();
     }
 

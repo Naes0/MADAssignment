@@ -111,6 +111,10 @@ public class BuyListFragment extends Fragment
 
     public void update()
     {
+        data = GameData.get();
+        player = data.getPlayer();
+        currArea = data.getArea(player.getRow(), player.getCol());
+        itemList = currArea.getitemList();
         adapter.notifyDataSetChanged();
     }
 

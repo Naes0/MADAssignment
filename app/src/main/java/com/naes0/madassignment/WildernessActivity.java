@@ -1,5 +1,6 @@
 package com.naes0.madassignment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,9 @@ public class WildernessActivity extends AppCompatActivity
 {
     private Button pickButton;
     private Button dropButton;
+    private Button leaveButton;
+    private Button useButton;
+
     private Fragment pickFrameFrag;
     private Fragment dropFrameFrag;
     private Fragment statusBar;
@@ -33,6 +37,8 @@ public class WildernessActivity extends AppCompatActivity
 
         pickButton = (Button) findViewById(R.id.pickup);
         dropButton = (Button) findViewById(R.id.drop);
+        leaveButton = (Button) findViewById(R.id.leave);
+        useButton = (Button) findViewById(R.id.use);
 
         FragmentManager fm = getSupportFragmentManager();
         pickFrameFrag = fm.findFragmentById(R.id.pickframe);
@@ -96,6 +102,32 @@ public class WildernessActivity extends AppCompatActivity
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();
+                    ((SellListFragment) dropFrameFrag).clearSelection();
+                }
+            }
+        });
+
+        leaveButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+
+        useButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                dropItem = ((SellListFragment) dropFrameFrag).getSelectedEquipment();
+                if(dropItem != null)
+                {
+                    dropItem.use();
+                    player.removeEquipment(dropItem);
+                    ((SellListFragment) dropFrameFrag).update();
+                    ((BuyListFragment) pickFrameFrag).update();
                     ((SellListFragment) dropFrameFrag).clearSelection();
                 }
             }

@@ -99,6 +99,8 @@
         app:layout_constraintRight_toRightOf="parent">
     </FrameLayout>
 
+
+
     <Button
         android:id="@+id/sell"
         android:layout_width="wrap_content"
@@ -113,5 +115,29 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sellframe" />
+
+    <Button
+        android:id="@+id/use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="use"
+        app:layout_constraintTop_toBottomOf="@id/sellframe"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/sell"
+        app:layout_constraintBottom_toTopOf="@id/statusbar"
+        tools:layout_editor_absoluteX="268dp"
+        tools:layout_editor_absoluteY="588dp" />
+
+    <Button
+        android:id="@+id/leave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="leave"
+        app:layout_constraintTop_toBottomOf="@id/sellframe"
+        app:layout_constraintRight_toLeftOf="@id/sell"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/statusbar"
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="589dp" />
 
 </android.support.constraint.ConstraintLayout>

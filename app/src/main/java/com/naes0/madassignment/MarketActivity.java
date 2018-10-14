@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MarketActivity extends AppCompatActivity
 {
     private Button buyButton;
     private Button sellButton;
+    private Button leaveButton;
+    private Button useButton;
     private Fragment buyFrameFrag;
     private Fragment sellFrameFrag;
     private Fragment statusBar;
@@ -38,6 +41,8 @@ public class MarketActivity extends AppCompatActivity
 
         buyButton = (Button) findViewById(R.id.buy);
         sellButton = (Button) findViewById(R.id.sell);
+        leaveButton = (Button) findViewById(R.id.leave);
+        useButton = (Button) findViewById(R.id.use);
 
         FragmentManager fm = getSupportFragmentManager();
         buyFrameFrag = fm.findFragmentById(R.id.buyframe);
@@ -101,6 +106,34 @@ public class MarketActivity extends AppCompatActivity
                 }
             }
         });
+
+        leaveButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+
+        useButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
+                if(sellItem != null)
+                {
+                    sellItem.use();
+                    player.removeEquipment(sellItem);
+                    ((SellListFragment) sellFrameFrag).update();
+                    ((BuyListFragment) buyFrameFrag).update();
+                    ((SellListFragment) sellFrameFrag).clearSelection();
+                }
+            }
+        });
+
+
 
     }
 
