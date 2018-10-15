@@ -98,7 +98,7 @@ public class GameData implements Serializable
         itemList.add(new Equipment("BF Sword", 15, 25 ));
         //usable items
         itemList.add(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
-        itemList.add(new ImprobDrive("Improbability Drive", 10, -Math.PI));
+        itemList.add(new ImprobDrive("Improbability Drive", 10, Math.floor(-Math.PI*100)/100));
         itemList.add(new BenKenobi("BenKenobi", 50, 20 ));
 
         return itemList;

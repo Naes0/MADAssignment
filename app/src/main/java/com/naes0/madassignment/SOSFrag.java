@@ -17,7 +17,7 @@ public class SOSFrag extends Fragment
 {
     private GameData data;
     private Player player;
-    private List<Item> combinedList;
+    private List<String> stringList;
     private ItemAdapter adapter;
 
     @Override
@@ -26,7 +26,7 @@ public class SOSFrag extends Fragment
         super.onCreate(b);
         data = GameData.get();
         player = data.getPlayer();
-        combinedList = setCombinedList();
+        stringList = setStringList(); //also sets areas list
         adapter = new ItemAdapter();
     }
 
@@ -38,7 +38,6 @@ public class SOSFrag extends Fragment
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ItemAdapter();
         rv.setAdapter(adapter);
-
         return view;
     }
 
@@ -58,12 +57,11 @@ public class SOSFrag extends Fragment
             northsouth = (TextView) itemView.findViewById(R.id.masshealth);
         }
 
-        public void bind(Item item)
+        public void bind(String itemName, String eastWest, String northSouth)
         {
-            name.setText(item.getDesc());
-            eastwest.setText("Value: " + item.getValue());
-            northsouth.setText("Mass: " + Double.toString(item.getMassOrHealth()));
-            this.item = item;
+            name.setText(itemName);
+            eastwest.setText(eastWest);
+            northsouth.setText(northSouth);
         }
     }
 
@@ -80,19 +78,22 @@ public class SOSFrag extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
-            holder.bind(combinedList.get(position));
+            String itemNameLocation = stringList.get(position);
+            String[] parts = itemNameLocation.split("\\|\\|\\|");
+            Log.d("STRING", parts.toString());
+            holder.bind(parts[0], parts[1], parts[2]);
         }
 
         @Override
         public int getItemCount()
         {
-            return combinedList.size();
+            return stringList.size();
         }
     }
 
-    public List<Item> setCombinedList()
+    public List<String> setStringList()
     {
-        List<Item> itemList = new ArrayList<Item>();
+        List<String> stringList = new ArrayList<String>();
         int pRow = player.getRow();
         int pCol = player.getCol();
 
@@ -105,20 +106,65 @@ public class SOSFrag extends Fragment
         {
             for(int j = upperCol; j <= lowerCol; j++ )
             {
-                itemList.add(new Equipment("Grid["+i+"]["+j+"]",0,0));
-                itemList.addAll(data.getArea(i,j).getitemList());
-                Log.d("ITEM","grid[" + i + "][" +j +"] =" + data.getArea(i,j).printItemList() );
+                String northSouth = getNorthSouth(i);
+                String eastWest = getEastWest(j);
+                List<Item> itemList = data.getArea(i,j).getitemList();
+                for(Item item : itemList)
+                {
+                    String itemNameLocation = item.getDesc() + "|||" + eastWest + "|||" + northSouth;
+                    stringList.add(itemNameLocation);
+                }
             }
         }
-        return itemList;
+        return stringList;
     }
 
     public void update()
     {
         data = GameData.get();
         player = data.getPlayer();
-        combinedList = setCombinedList();
         adapter.notifyDataSetChanged();
     }
+
+    public String getEastWest(int j)
+    {
+        String eastWest = "";
+        int currJ = player.getCol();
+        if (j > currJ)
+        {
+            eastWest = (j-currJ) + " East";
+        }
+        else if(j < currJ)
+        {
+            eastWest = (currJ-j) + " West";
+        }
+        else
+        {
+            eastWest = "Current Col";
+        }
+
+        return eastWest;
+    }
+
+    public String getNorthSouth(int i)
+    {
+        String northSouth = "";
+        int currI = player.getRow();
+        if (i < currI)
+        {
+            northSouth = (currI - i) + " South";
+        }
+        else if(i > currI)
+        {
+            northSouth = (i - currI) + " North";
+        }
+        else
+        {
+            northSouth = "Current Row";
+        }
+        return northSouth;
+    }
+
+
 
 }
