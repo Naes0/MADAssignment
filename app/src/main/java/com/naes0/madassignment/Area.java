@@ -1,13 +1,9 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Area implements Parcelable
+public class Area
 {
     private boolean town;
     private String description;
@@ -15,13 +11,30 @@ public class Area implements Parcelable
     private boolean explored;
     private List<Item> itemList;
 
-    public Area(List<Item> itemList)
+    private final int terrainNorthWest;
+    private final int terrainSouthWest;
+    private final int terrainNorthEast;
+    private final int terrainSouthEast;
+    private final int structure;
+    private final int unExplored;
+    private final int unStarred;
+
+    public Area(List<Item> itemList, int northWest, int northEast,
+                int southWest, int southEast)
     {
         town = randTown(); //25% chance of being town
         description = "";
         starred = false;
         explored = false;
         this.itemList = itemList;
+
+        this.terrainNorthWest = northWest;
+        this.terrainNorthEast = northEast;
+        this.terrainSouthWest = southWest;
+        this.terrainSouthEast = southEast;
+        this.structure = setStructure();
+        this.unExplored = setUnexplored();
+        this.unStarred = setUnstarred();
     }
 
     public boolean randTown()
@@ -35,29 +48,47 @@ public class Area implements Parcelable
         return isTown;
     }
 
-    protected Area(Parcel in)
+    public int setStructure()
     {
-        town = in.readByte() != 0;
-        description = in.readString();
-        starred = in.readByte() != 0;
-        explored = in.readByte() != 0;
-        itemList = in.readArrayList(Item.class.getClassLoader());
+        int x;
+        if (isTown())
+        {
+            x = R.drawable.ic_building7;
+        }
+        else
+        {
+            x = R.drawable.ic_tree4;
+        }
+        return x;
     }
 
-    public static final Creator<Area> CREATOR = new Creator<Area>()
+    public int setUnexplored()
     {
-        @Override
-        public Area createFromParcel(Parcel in)
+        int x;
+        if (isExplored())
         {
-            return new Area(in);
+            x = 0;
         }
+        else
+        {
+            x = R.color.black;
+        }
+        return x;
+    }
 
-        @Override
-        public Area[] newArray(int size)
+    public int setUnstarred()
+    {
+        int x;
+        if (isStarred())
         {
-            return new Area[size];
+            x = R.color.white;
         }
-    };
+        else
+        {
+            x = 0;
+        }
+        return x;
+    }
     
     public void setitemList(List<Item> list)
     {
@@ -89,6 +120,16 @@ public class Area implements Parcelable
         explored = boo;
     }
 
+    public boolean isStarred()
+    {
+        return starred;
+    }
+
+    public boolean isExplored()
+    {
+        return explored;
+    }
+
     public boolean isTown()
     {
         return town;
@@ -114,22 +155,41 @@ public class Area implements Parcelable
         return itemList;
     }
 
-
-    @Override
-    public int describeContents()
+    public int getNorthWest()
     {
-        return 0;
+        return terrainNorthWest;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i)
+    public int getUnexplored()
     {
-        parcel.writeByte((byte) (town ? 1 : 0));
-        parcel.writeString(description);
-        parcel.writeByte((byte)(starred ? 1 : 0));
-        parcel.writeByte((byte)(explored ? 1 : 0));
-        parcel.writeList(itemList);
+        return unExplored;
     }
+
+    public int getUnstarred()
+    {
+        return unStarred;
+    }
+
+    public int getSouthWest()
+    {
+        return terrainSouthWest;
+    }
+
+    public int getNorthEast()
+    {
+        return terrainNorthEast;
+    }
+
+    public int getSouthEast()
+    {
+        return terrainSouthEast;
+    }
+
+    public int getStructure()
+    {
+        return  structure;
+    }
+
     public String printTown()
     {
         if (isTown())
@@ -138,7 +198,7 @@ public class Area implements Parcelable
         }
         else
         {
-            return "wildnerness";
+            return "wilderness";
         }
     }
     

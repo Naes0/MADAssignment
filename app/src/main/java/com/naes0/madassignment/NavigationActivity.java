@@ -125,6 +125,15 @@ public class NavigationActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        overviewButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(NavigationActivity.this, OverviewActivity.class));
+            }
+        });
     }
 
     @Override
@@ -164,6 +173,7 @@ public class NavigationActivity extends AppCompatActivity
         }*/
         locationView.setText(player.getPos());
         currArea = data.getCurrArea();
+        currArea.setExplored(true);
         ((AreaInfoFrag) areaInfo).update();
         ((StatusBarFrag) statusBar).update();
     }

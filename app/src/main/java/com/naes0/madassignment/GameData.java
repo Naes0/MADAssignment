@@ -55,19 +55,18 @@ public class GameData implements Serializable
         {
             for (int j = 0; j < WIDTH; j++)
             {
-                grid[i][j] = new Area(generateItemList());
-                //Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
+                grid[i][j] = new Area(generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
             }
         }
         grid[0][0].setExplored(true);
-        setRandomWinningItems(grid,player);
-        for(int i = 0; i < HEIGHT; i++)
+        setRandomWinningItems(grid, player);
+        /*for(int i = 0; i < HEIGHT; i++)
         {
             for (int j = 0; j < WIDTH; j++)
             {
                 Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
             }
-        }
+        }*/
         return grid;
     }
 
@@ -104,6 +103,7 @@ public class GameData implements Serializable
         return itemList;
     }
 
+
     public List<Item> winningItemListSet()
     {
         List<Item> itemList = new ArrayList<Item>();
@@ -124,6 +124,7 @@ public class GameData implements Serializable
         return areaItemList;
     }
 
+    //ensures that only one of each of the winning items is always on the map.
     public static void setRandomWinningItems(Area[][] grid, Player player)
     {
         for(int i = 0; i < 3; i++)
