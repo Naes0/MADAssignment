@@ -97,12 +97,12 @@ public class SOSFrag extends Fragment
         int pRow = player.getRow();
         int pCol = player.getCol();
 
-        int upperRow = Math.min(pRow+2, GameData.HEIGHT-1);
+        int upperRow = Math.max(pRow-2, 0);
         int upperCol = Math.max(0, pCol-2);
-        int lowerRow = Math.max(0, pRow-2);
+        int lowerRow = Math.min(pRow+2, GameData.HEIGHT-1);
         int lowerCol = Math.min(pCol+2, GameData.WIDTH-1);
 
-        for(int i = upperRow; i >= lowerRow; i--)
+        for(int i = upperRow; i <= lowerRow; i++)
         {
             for(int j = upperCol; j <= lowerCol; j++ )
             {
@@ -152,11 +152,11 @@ public class SOSFrag extends Fragment
         int currI = player.getRow();
         if (i < currI)
         {
-            northSouth = (currI - i) + " South";
+            northSouth = (currI - i) + " North";
         }
         else if(i > currI)
         {
-            northSouth = (i - currI) + " North";
+            northSouth = (i - currI) + " South";
         }
         else
         {

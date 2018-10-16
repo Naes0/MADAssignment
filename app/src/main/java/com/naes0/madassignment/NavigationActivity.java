@@ -57,7 +57,7 @@ public class NavigationActivity extends AppCompatActivity
             fm.beginTransaction().add(R.id.statusbar, statusBar).commit();
         }
 
-        northButton.setOnClickListener(new View.OnClickListener()
+        southButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -70,7 +70,7 @@ public class NavigationActivity extends AppCompatActivity
             }
         });
 
-        southButton.setOnClickListener(new View.OnClickListener()
+        northButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)

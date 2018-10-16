@@ -16,8 +16,8 @@ public class Area
     private final int terrainNorthEast;
     private final int terrainSouthEast;
     private final int structure;
-    private final int unExplored;
-    private final int unStarred;
+    private int unExplored;
+    private int unStarred;
 
     public Area(List<Item> itemList, int northWest, int northEast,
                 int southWest, int southEast)
@@ -118,6 +118,7 @@ public class Area
     public void setExplored(boolean boo)
     {
         explored = boo;
+        unExplored = setUnexplored();
     }
 
     public boolean isStarred()

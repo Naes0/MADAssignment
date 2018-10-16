@@ -72,6 +72,7 @@ public class MapFragment extends Fragment
             imageView3.setImageResource(area.getSouthWest());
             imageView4.setImageResource(area.getSouthEast());
             imageView5.setImageResource(area.getStructure());
+            int x = area.getUnexplored();
             imageView6.setImageResource(area.getUnexplored());
             imageView7.setImageResource(area.getUnstarred());
             this.area = area;

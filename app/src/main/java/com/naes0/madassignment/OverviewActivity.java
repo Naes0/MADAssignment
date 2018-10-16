@@ -20,7 +20,6 @@ public class OverviewActivity extends AppCompatActivity
         if (mapFrag == null)
         {
             mapFrag = new MapFragment();
-
             fm.beginTransaction().add(R.id.frame, mapFrag).commit();
         }
         else
