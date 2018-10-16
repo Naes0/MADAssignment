@@ -1,6 +1,5 @@
 package com.naes0.madassignment;
 
-import android.util.Log;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

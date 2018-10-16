@@ -139,7 +139,6 @@ public class MarketActivity extends AppCompatActivity
         data = GameData.get();
         player = data.getPlayer();
         currArea = data.getArea(player.getRow(), player.getCol());
-
     }
 
 }

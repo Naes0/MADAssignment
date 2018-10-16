@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.Map;
+
 public class MapFragment extends Fragment
 {
     private GameData data;
     private GridAdapter adapter;
+    private Area selectedArea;
+    private AreaInfoFrag areaInfoFrag;
 
     @Override
     public void onCreate(Bundle b)
@@ -43,6 +47,7 @@ public class MapFragment extends Fragment
         private ImageView imageView5;
         private ImageView imageView6;
         private ImageView imageView7;
+        private ImageView imageView8;
         private Area area;
 
         //Viewholder
@@ -62,7 +67,17 @@ public class MapFragment extends Fragment
             imageView5 = (ImageView) itemView.findViewById(R.id.imageView5);
             imageView6 = (ImageView) itemView.findViewById(R.id.imageView6);
             imageView7 = (ImageView) itemView.findViewById(R.id.imageView7);
+            imageView8 = (ImageView) itemView.findViewById(R.id.imageView8);
 
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+
+                    areaInfoFrag.updateForMap(area);
+                }
+            });
         }
 
         public void bind(Area area)
@@ -72,9 +87,14 @@ public class MapFragment extends Fragment
             imageView3.setImageResource(area.getSouthWest());
             imageView4.setImageResource(area.getSouthEast());
             imageView5.setImageResource(area.getStructure());
-            int x = area.getUnexplored();
             imageView6.setImageResource(area.getUnexplored());
             imageView7.setImageResource(area.getUnstarred());
+            imageView8.setImageResource(R.color.transparent);
+
+            if(area.equals(data.getCurrArea()))
+            {
+                imageView8.setImageResource(R.drawable.ic_water);
+            }
             this.area = area;
         }
     }
@@ -109,4 +129,15 @@ public class MapFragment extends Fragment
         data = GameData.get();
         adapter.notifyDataSetChanged();
     }
+
+    public void setAreaInfoFrag(AreaInfoFrag areaInfoFrag)
+    {
+        this.areaInfoFrag = areaInfoFrag;
+    }
+
+    public Area getSelectedArea()
+    {
+        return selectedArea;
+    }
+
 }

@@ -89,7 +89,7 @@ public class Area
         }
         return x;
     }
-    
+
     public void setitemList(List<Item> list)
     {
         this.itemList = list;
@@ -108,6 +108,7 @@ public class Area
     public void setStarred(boolean boo)
     {
         starred = boo;
+        unStarred = setUnstarred();
     }
 
     public boolean getStarred()

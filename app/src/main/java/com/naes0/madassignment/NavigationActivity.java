@@ -40,6 +40,8 @@ public class NavigationActivity extends AppCompatActivity
 
         data = GameData.get();
         player = data.getPlayer();
+        currArea = data.getCurrArea();
+
         initialiseComponents();
         playerSetup();
 
@@ -131,7 +133,7 @@ public class NavigationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                startActivity(new Intent(NavigationActivity.this, OverviewActivity.class));
+                startActivityForResult(new Intent(NavigationActivity.this, OverviewActivity.class), REQUEST_CODE);
             }
         });
     }
@@ -141,6 +143,7 @@ public class NavigationActivity extends AppCompatActivity
     {
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK)
         {
+            ((AreaInfoFrag)areaInfo).update();
             ((StatusBarFrag) statusBar).update();
         }
     }
@@ -184,7 +187,6 @@ public class NavigationActivity extends AppCompatActivity
         player.addEquipment(new Equipment("Shield", 5, 3));
         player.addEquipment(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
         player.addCash(50);
-        currArea = data.getArea(player.getRow(), player.getCol());
         locationView.setText(player.getPos());
     }
 }

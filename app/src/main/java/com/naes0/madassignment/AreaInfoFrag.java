@@ -11,16 +11,18 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Map;
+
 public class AreaInfoFrag extends Fragment
 {
 
     private TextView descView;
     private EditText descEdit;
     private Switch starred;
-
     private Area currArea;
     private GameData data;
     private Player player;
+    private Area selectedArea;
 
     @Override
     public void onCreate(Bundle b)
@@ -28,7 +30,7 @@ public class AreaInfoFrag extends Fragment
         super.onCreate(b);
         data = GameData.get();
         player = data.getPlayer();
-        currArea = data.getArea(player.getRow(), player.getCol());
+        currArea = data.getCurrArea();
     }
 
     @Override
@@ -78,7 +80,7 @@ public class AreaInfoFrag extends Fragment
 
     public void update()
     {
-        currArea = data.getArea(player.getRow(), player.getCol());
+        currArea = data.getCurrArea();
         descView.setText(setWildOrTown());
         descEdit.setText(currArea.getDescription());
         starred.setChecked(currArea.getStarred());
@@ -96,5 +98,27 @@ public class AreaInfoFrag extends Fragment
             wildOrTown = "Wilderness";
         }
         return  wildOrTown;
+    }
+
+    public String setWildOrTown(Area area)
+    {
+        String wildOrTown = "";
+        if (area.isTown())
+        {
+            wildOrTown = "Town";
+        }
+        else
+        {
+            wildOrTown = "Wilderness";
+        }
+        return  wildOrTown;
+    }
+
+    public void updateForMap(Area area)
+    {
+        currArea = area;
+        descView.setText(setWildOrTown());
+        descEdit.setText(area.getDescription());
+        starred.setChecked(area.getStarred());
     }
 }
