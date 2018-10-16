@@ -70,7 +70,7 @@ public class BuyListFragment extends Fragment
         {
             name.setText(item.getDesc());
             value.setText("Value: " + item.getValue());
-            masshealth.setText("Mass: " + Double.toString(item.getMassOrHealth()));
+            masshealth.setText(item.getStringHealthMass() + Double.toString(item.getMassOrHealth()));
             this.item = item;
         }
     }
