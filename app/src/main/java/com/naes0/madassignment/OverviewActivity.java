@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 public class OverviewActivity extends AppCompatActivity
 {
@@ -15,7 +14,6 @@ public class OverviewActivity extends AppCompatActivity
     private Fragment statusBarFrag;
     private Fragment areaInfoFrag;
     private Button leaveButton;
-    private Area selectedArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

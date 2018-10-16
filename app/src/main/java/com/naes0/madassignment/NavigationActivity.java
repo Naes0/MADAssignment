@@ -1,19 +1,20 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class NavigationActivity extends AppCompatActivity
 {
-    private ConstraintLayout layout;
     private TextView locationView;
 
     private Button northButton;
@@ -44,6 +45,7 @@ public class NavigationActivity extends AppCompatActivity
 
         initialiseComponents();
         playerSetup();
+        locationView.setText(player.getPos());
 
         FragmentManager fm = getSupportFragmentManager();
         areaInfo = fm.findFragmentById(R.id.areainfo);
@@ -157,23 +159,24 @@ public class NavigationActivity extends AppCompatActivity
         eastButton = (Button) findViewById(R.id.east);
         optionButton = (Button) findViewById(R.id.option);
         overviewButton = (Button) findViewById(R.id.overview);
-        layout = (ConstraintLayout) findViewById(R.id.navlayout);
     }
 
     public void playerMoves()
     {
-        /*try
+        try
         {
             player.decreaseHealth();
         }
-        catch (DecreaseHealthException e)
+        catch (DeadException e)
         {
             Context context = getApplicationContext();
-            Toast toast = Toast.makeText(context, "You Lose", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT);
+            Toast toast1 = Toast.makeText(context, "You Lose", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            data.reset();
             startActivity(new Intent(NavigationActivity.this, MainActivity.class));
-        }*/
+        }
         locationView.setText(player.getPos());
         currArea = data.getCurrArea();
         currArea.setExplored(true);
@@ -183,10 +186,6 @@ public class NavigationActivity extends AppCompatActivity
 
     public void playerSetup()
     {
-        player.addEquipment(new Equipment("Sword", 10, 5));
-        player.addEquipment(new Equipment("Shield", 5, 3));
-        player.addEquipment(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
         player.addCash(50);
-        locationView.setText(player.getPos());
     }
 }

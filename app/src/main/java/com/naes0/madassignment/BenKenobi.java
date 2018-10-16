@@ -1,6 +1,9 @@
 package com.naes0.madassignment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,7 +24,18 @@ public class BenKenobi extends Equipment
         List<Item> itemList = currArea.getitemList();
         for (Item item : itemList)
         {
-            player.addItemNoCash(item);
+            try
+            {
+                player.addItemNoCash(item);
+            }
+            catch(WinException e)
+            {
+                Toast toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                data.reset();
+                c.startActivity(new Intent(c, MainActivity.class));
+            }
         }
         itemList.clear();
     }

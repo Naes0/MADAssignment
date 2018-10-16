@@ -16,7 +16,6 @@ public class ImprobDrive extends Equipment
     {
         GameData data = GameData.get();
         data.regenerate();
-
         //regenerate map and items, player keeps items.
     }
 }

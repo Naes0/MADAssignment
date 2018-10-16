@@ -1,12 +1,15 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class WildernessActivity extends AppCompatActivity
 {
@@ -69,15 +72,21 @@ public class WildernessActivity extends AppCompatActivity
                 pickItem = ((BuyListFragment) pickFrameFrag).getSelectedItem();
                 if (pickItem != null)
                 {
-                    if (pickItem instanceof Equipment)
+                    try
                     {
-                        player.addEquipment((Equipment) pickItem);
-                    } else
-                    {
-                        player.addHealth(pickItem.getMassOrHealth());
+                        player.addItemNoCash(pickItem);
                     }
-                    currArea.removeItem(pickItem);
+                    catch(WinException e)
+                    {
+                        Context context = getApplicationContext();
+                        Toast toast = Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        data.reset();
+                        startActivity(new Intent(WildernessActivity.this, MainActivity.class));
+                    }
 
+                    currArea.removeItem(pickItem);
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();

@@ -9,13 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.Map;
-
 public class MapFragment extends Fragment
 {
     private GameData data;
     private GridAdapter adapter;
-    private Area selectedArea;
     private AreaInfoFrag areaInfoFrag;
 
     @Override
@@ -132,11 +129,6 @@ public class MapFragment extends Fragment
     public void setAreaInfoFrag(AreaInfoFrag areaInfoFrag)
     {
         this.areaInfoFrag = areaInfoFrag;
-    }
-
-    public Area getSelectedArea()
-    {
-        return selectedArea;
     }
 
 }

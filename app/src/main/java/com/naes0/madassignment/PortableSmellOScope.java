@@ -1,6 +1,5 @@
 package com.naes0.madassignment;
 
-
 import android.content.Context;
 import android.content.Intent;
 

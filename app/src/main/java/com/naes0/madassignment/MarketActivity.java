@@ -1,13 +1,16 @@
 package com.naes0.madassignment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MarketActivity extends AppCompatActivity
@@ -72,9 +75,21 @@ public class MarketActivity extends AppCompatActivity
                buyItem = ((BuyListFragment) buyFrameFrag).getSelectedItem();
                if (buyItem != null)
                {
-                   if (player.addItem(buyItem)) //if player accepts item remove it from the area.
+                   try
                    {
-                       currArea.removeItem(buyItem);
+                       if (player.addItem(buyItem)) //if player accepts item remove it from the area.
+                       {
+                           currArea.removeItem(buyItem);
+                       }
+                   }
+                   catch(WinException e)
+                   {
+                       Context context = getApplicationContext();
+                       Toast toast = Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG);
+                       toast.setGravity(Gravity.CENTER, 0, 0);
+                       toast.show();
+                       data.reset();
+                       startActivity(new Intent(MarketActivity.this, MainActivity.class));
                    }
                    ((SellListFragment) sellFrameFrag).update();
                    ((BuyListFragment) buyFrameFrag).update();
@@ -138,7 +153,7 @@ public class MarketActivity extends AppCompatActivity
     {
         data = GameData.get();
         player = data.getPlayer();
-        currArea = data.getArea(player.getRow(), player.getCol());
+        currArea = data.getCurrArea();
     }
 
 }

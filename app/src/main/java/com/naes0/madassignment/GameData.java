@@ -1,5 +1,7 @@
 package com.naes0.madassignment;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +60,17 @@ public class GameData implements Serializable
             }
         }
         grid[0][0].setExplored(true);
+        grid[0][0].addItem(new Equipment("Jade Monkey", 10, 7 ));
+        grid[0][0].addItem(new Equipment("Roadmap", 10, 3 ));
+        grid[0][0].addItem( new Equipment("Ice Scraper", 10, 12 ));
         setRandomWinningItems(grid, player);
-        /*for(int i = 0; i < HEIGHT; i++)
+        for(int i = 0; i < HEIGHT; i++)
         {
             for (int j = 0; j < WIDTH; j++)
             {
                 Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
             }
-        }*/
+        }
         return grid;
     }
 
@@ -169,7 +174,7 @@ public class GameData implements Serializable
         }
         if( randomDouble > 0.40 && randomDouble <= 0.45)
         {
-            item = itemList.get(6);//p smelloscope
+            item = itemList.get(6);//p-smelloscope
         }
         if( randomDouble > 0.45 && randomDouble <= 0.475)
         {
@@ -185,9 +190,5 @@ public class GameData implements Serializable
     public Player getPlayer()
     {
         return player;
-    }
-    public Area[][] getGrid()
-    {
-        return grid;
     }
 }

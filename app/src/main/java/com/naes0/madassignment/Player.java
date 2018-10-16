@@ -1,12 +1,9 @@
 package com.naes0.madassignment;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements Parcelable
+public class Player
 {
     private int row;
     private int col;
@@ -25,31 +22,6 @@ public class Player implements Parcelable
         this.equipMass = 0.0;
         this.equipmentlist = new ArrayList<Equipment>();
     }
-
-    protected Player(Parcel in)
-    {
-        row = in.readInt();
-        col = in.readInt();
-        cash = in.readInt();
-        health = in.readDouble();
-        equipMass = in.readDouble();
-        equipmentlist = in.readArrayList(Equipment.class.getClassLoader());
-    }
-
-    public static final Creator<Player> CREATOR = new Creator<Player>()
-    {
-        @Override
-        public Player createFromParcel(Parcel in)
-        {
-            return new Player(in);
-        }
-
-        @Override
-        public Player[] newArray(int size)
-        {
-            return new Player[size];
-        }
-    };
 
     public int getRow()
     {
@@ -123,13 +95,35 @@ public class Player implements Parcelable
         return equipmentlist;
     }
 
-    public void addEquipment(Equipment equip)
+    public void addEquipment(Equipment equip) throws WinException
     {
         equipmentlist.add(equip);
         addEquipMass(equip.getMassOrHealth());
+        boolean sword = false;
+        boolean shield = false;
+        boolean necklace = false;
+        for(Equipment eq : equipmentlist)
+        {
+            if(!sword)
+            {
+                sword = eq.getDesc().equals("Jade Monkey");
+            }
+            if(!shield)
+            {
+                shield = eq.getDesc().equals("Roadmap");
+            }
+            if(!necklace)
+            {
+                necklace = eq.getDesc().equals("Ice Scraper");
+            }
+        }
+        if(sword && shield && necklace)
+        {
+            throw new WinException("You got the secret items!\n               You Win!");
+        }
     }
 
-    public boolean addItem(Item buyItem)
+    public boolean addItem(Item buyItem) throws WinException
     {
         boolean boo = false;
         if (cash >= buyItem.getValue())
@@ -148,7 +142,7 @@ public class Player implements Parcelable
         return boo;
     }
 
-    public void addItemNoCash(Item buyItem)
+    public void addItemNoCash(Item buyItem) throws WinException
     {
         if (buyItem instanceof Equipment)
         {
@@ -166,12 +160,12 @@ public class Player implements Parcelable
         addEquipMass(-equip.getMassOrHealth());
     }
 
-    public void decreaseHealth() throws DecreaseHealthException
+    public void decreaseHealth() throws DeadException
     {
         setHealth(Math.max(0.0, health - 5.0 - (equipMass / 2.0)));
         if (health <= 0.0)
         {
-            throw new DecreaseHealthException("Health is 0");
+            throw new DeadException("You lost all your health!\n            You Lose!");
         }
     }
 
@@ -186,22 +180,5 @@ public class Player implements Parcelable
             }
         }
         return boo;
-    }
-
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i)
-    {
-        parcel.writeInt(row);
-        parcel.writeInt(col);
-        parcel.writeInt(cash);
-        parcel.writeDouble(health);
-        parcel.writeDouble(equipMass);
-        parcel.writeList(equipmentlist);
     }
 }

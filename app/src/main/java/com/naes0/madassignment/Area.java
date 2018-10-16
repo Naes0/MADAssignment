@@ -90,11 +90,6 @@ public class Area
         return x;
     }
 
-    public void setitemList(List<Item> list)
-    {
-        this.itemList = list;
-    }
-
     public void setDescription(String description)
     {
         this.description = description;
@@ -190,18 +185,6 @@ public class Area
     public int getStructure()
     {
         return  structure;
-    }
-
-    public String printTown()
-    {
-        if (isTown())
-        {
-            return "town";
-        }
-        else
-        {
-            return "wilderness";
-        }
     }
     
     public String printItemList()
