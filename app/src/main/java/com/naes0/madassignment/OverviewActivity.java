@@ -38,7 +38,7 @@ public class OverviewActivity extends AppCompatActivity
         if (mapFrag == null)
         {
             mapFrag = new MapFragment();
-            ((MapFragment) mapFrag).setAreaInfoFrag((AreaInfoFrag) areaInfoFrag);
+
             fm.beginTransaction().add(R.id.frame, mapFrag).commit();
         }
         if (statusBarFrag == null)
@@ -46,7 +46,8 @@ public class OverviewActivity extends AppCompatActivity
             statusBarFrag = new StatusBarFrag();
             fm.beginTransaction().add(R.id.statusbar, statusBarFrag).commit();
         }
-
+        ((MapFragment) mapFrag).setAreaInfoFrag((AreaInfoFrag) areaInfoFrag);
+        ((AreaInfoFrag) areaInfoFrag).setMapFrag((MapFragment) mapFrag);
 
         leaveButton.setOnClickListener(new View.OnClickListener()
         {

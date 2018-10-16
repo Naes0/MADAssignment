@@ -74,8 +74,7 @@ public class MapFragment extends Fragment
                 @Override
                 public void onClick(View view)
                 {
-
-                    areaInfoFrag.updateForMap(area);
+                    areaInfoFrag.updateForArea(area);
                 }
             });
         }
@@ -93,7 +92,7 @@ public class MapFragment extends Fragment
 
             if(area.equals(data.getCurrArea()))
             {
-                imageView8.setImageResource(R.drawable.ic_water);
+                imageView8.setImageResource(R.drawable.player);
             }
             this.area = area;
         }

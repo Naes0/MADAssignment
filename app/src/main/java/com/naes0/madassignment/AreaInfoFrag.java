@@ -21,15 +21,13 @@ public class AreaInfoFrag extends Fragment
     private Switch starred;
     private Area currArea;
     private GameData data;
-    private Player player;
-    private Area selectedArea;
+    private MapFragment mapFrag;
 
     @Override
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
         data = GameData.get();
-        player = data.getPlayer();
         currArea = data.getCurrArea();
     }
 
@@ -72,6 +70,7 @@ public class AreaInfoFrag extends Fragment
             {
                 starred.setChecked(!currArea.getStarred());
                 currArea.setStarred(!currArea.getStarred());
+                updateForMap();
             }
         });
 
@@ -100,25 +99,25 @@ public class AreaInfoFrag extends Fragment
         return  wildOrTown;
     }
 
-    public String setWildOrTown(Area area)
-    {
-        String wildOrTown = "";
-        if (area.isTown())
-        {
-            wildOrTown = "Town";
-        }
-        else
-        {
-            wildOrTown = "Wilderness";
-        }
-        return  wildOrTown;
-    }
-
-    public void updateForMap(Area area)
+    public void updateForArea(Area area)
     {
         currArea = area;
         descView.setText(setWildOrTown());
         descEdit.setText(area.getDescription());
         starred.setChecked(area.getStarred());
+    }
+
+    public void setMapFrag(MapFragment mapFrag)
+    {
+        this.mapFrag = mapFrag;
+    }
+
+    public void updateForMap()
+    {
+        if(mapFrag != null)
+        {
+            mapFrag.update();
+        }
+
     }
 }

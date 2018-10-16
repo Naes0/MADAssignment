@@ -81,7 +81,7 @@ public class Area
         int x;
         if (isStarred())
         {
-            x = R.color.white;
+            x = R.drawable.star;
         }
         else
         {
