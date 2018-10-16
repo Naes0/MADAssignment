@@ -60,9 +60,6 @@ public class GameData implements Serializable
             }
         }
         grid[0][0].setExplored(true);
-        grid[0][0].addItem(new Equipment("Jade Monkey", 10, 7 ));
-        grid[0][0].addItem(new Equipment("Roadmap", 10, 3 ));
-        grid[0][0].addItem( new Equipment("Ice Scraper", 10, 12 ));
         setRandomWinningItems(grid, player);
         for(int i = 0; i < HEIGHT; i++)
         {
