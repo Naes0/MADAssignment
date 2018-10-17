@@ -23,7 +23,7 @@ public class BuyListFragment extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
         currArea = data.getArea(player.getRow(), player.getCol());
         itemList = currArea.getitemList();
@@ -110,7 +110,7 @@ public class BuyListFragment extends Fragment
 
     public void update()
     {
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
         currArea = data.getArea(player.getRow(), player.getCol());
         itemList = currArea.getitemList();

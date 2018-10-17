@@ -35,7 +35,7 @@ public class MarketActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market);
 
-        data = GameData.get();
+        data = GameData.get(getApplicationContext());
         player = data.getPlayer();
         currArea = data.getArea(player.getRow(), player.getCol());
 
@@ -151,7 +151,7 @@ public class MarketActivity extends AppCompatActivity
 
     public void update()
     {
-        data = GameData.get();
+        data = GameData.get(getApplicationContext());
         player = data.getPlayer();
         currArea = data.getCurrArea();
     }

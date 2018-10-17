@@ -39,7 +39,7 @@ public class NavigationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        data = GameData.get();
+        data = GameData.get(getApplicationContext());
         player = data.getPlayer();
         currArea = data.getCurrArea();
 

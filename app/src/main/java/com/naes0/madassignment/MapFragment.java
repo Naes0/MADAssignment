@@ -19,7 +19,7 @@ public class MapFragment extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         adapter = new GridAdapter();
     }
 
@@ -122,7 +122,7 @@ public class MapFragment extends Fragment
 
     public void update()
     {
-        data = GameData.get();
+        data = GameData.get(getContext());
         adapter.notifyDataSetChanged();
     }
 

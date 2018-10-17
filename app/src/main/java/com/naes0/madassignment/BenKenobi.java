@@ -18,7 +18,7 @@ public class BenKenobi extends Equipment
     @Override
     public void use(Context c)
     {
-        GameData data = GameData.get();
+        GameData data = GameData.get(c);
         Player player = data.getPlayer();
         Area currArea = data.getCurrArea();
         List<Item> itemList = currArea.getitemList();

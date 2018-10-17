@@ -27,7 +27,7 @@ public class AreaInfoFrag extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         currArea = data.getCurrArea();
     }
 

@@ -23,6 +23,8 @@ public class Player
         this.equipmentlist = new ArrayList<Equipment>();
     }
 
+
+
     public int getRow()
     {
         return row;

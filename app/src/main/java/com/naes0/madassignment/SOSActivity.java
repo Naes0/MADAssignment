@@ -21,7 +21,7 @@ public class SOSActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
 
-        data = GameData.get();
+        data = GameData.get(getApplicationContext());
 
         leaveButton = (Button) findViewById(R.id.leave);
 

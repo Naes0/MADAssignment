@@ -1,5 +1,7 @@
 package com.naes0.madassignment;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -17,25 +19,27 @@ public class GameData implements Serializable
     private Player player;
     private static List<Item> itemList;
     private static List<Item> winningItemList;
+    private SQLiteDatabase db;
 
     private static Random rand = new Random();
     private static GameData instance = null;
 
-    public static GameData get()
+    public static GameData get(Context c)
     {
         if (instance == null)
         {
-            instance = new GameData();
+            instance = new GameData(c);
         }
         return instance;
     }
 
-    public GameData()
+    public GameData(Context c)
     {
         this.player = new Player();
         this.itemList = itemListSet();
         this.winningItemList = winningItemListSet();
         this.grid = generateGrid(this.player);
+        this.db = new DatabaseDbHelper(c.getApplicationContext()).getWritableDatabase();
     }
 
     public void regenerate()

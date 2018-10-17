@@ -22,7 +22,7 @@ public class StatusBarFrag extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
     }
 
@@ -45,7 +45,7 @@ public class StatusBarFrag extends Fragment
             @Override
             public void onClick(View view)
             {
-                GameData data = GameData.get();
+                GameData data = GameData.get(getContext());
                 data.reset();
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }

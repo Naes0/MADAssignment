@@ -22,7 +22,7 @@ public class SellListFragment extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
         equipmentList = player.getEquipmentlist();
         adapter = new ItemAdapter();
@@ -98,7 +98,7 @@ public class SellListFragment extends Fragment
 
     public void update()
     {
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
         equipmentList = player.getEquipmentlist();
         adapter.notifyDataSetChanged();

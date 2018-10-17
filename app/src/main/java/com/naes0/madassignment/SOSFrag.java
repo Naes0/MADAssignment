@@ -24,7 +24,7 @@ public class SOSFrag extends Fragment
     public void onCreate(Bundle b)
     {
         super.onCreate(b);
-        data = GameData.get();
+        data = GameData.get(getContext());
         player = data.getPlayer();
         stringList = setStringList(); //also sets areas list
         adapter = new ItemAdapter();
@@ -117,13 +117,6 @@ public class SOSFrag extends Fragment
             }
         }
         return stringList;
-    }
-
-    public void update()
-    {
-        data = GameData.get();
-        player = data.getPlayer();
-        adapter.notifyDataSetChanged();
     }
 
     public String getEastWest(int j)
