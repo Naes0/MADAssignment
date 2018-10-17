@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Area
 {
+    public final int id;
     private boolean town;
     private String description;
     private boolean starred;
@@ -19,9 +20,11 @@ public class Area
     private int unExplored;
     private int unStarred;
 
-    public Area(List<Item> itemList, int northWest, int northEast,
-                int southWest, int southEast)
+    private static int nextId = 0;
+
+    public Area(int id, List<Item> itemList, int northWest, int northEast, int southWest, int southEast)
     {
+        this.id = id;
         town = randTown(); //25% chance of being town
         description = "";
         starred = false;
@@ -35,6 +38,13 @@ public class Area
         this.structure = setStructure();
         this.unExplored = setUnexplored();
         this.unStarred = setUnstarred();
+        nextId = id + 1;
+    }
+
+    public Area(List<Item> itemList, int northWest, int northEast, int southWest, int southEast)
+    {
+        this(nextId, itemList, northWest, northEast, southWest, southEast);
+        nextId++;
     }
 
     public boolean randTown()
@@ -88,6 +98,11 @@ public class Area
             x = 0;
         }
         return x;
+    }
+
+    public int getId()
+    {
+        return  id;
     }
 
     public void setDescription(String description)

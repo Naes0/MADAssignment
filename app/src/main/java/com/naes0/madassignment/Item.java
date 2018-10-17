@@ -6,6 +6,12 @@ public abstract class Item
 {
     private String desc;
     private int value;
+    private static int nextId = 0;
+
+    public int getNextId()
+    {
+        return nextId;
+    }
 
     public void setValue(int value)
     {

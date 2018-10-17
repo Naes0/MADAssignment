@@ -17,4 +17,10 @@ public class PortableSmellOScope extends Equipment
         c.startActivity(new Intent(c, SOSActivity.class));
         //start new activity of item of up to 2 squares away;
     }
+
+    @Override
+    public String getStringType()
+    {
+        return "PSOS";
+    }
 }

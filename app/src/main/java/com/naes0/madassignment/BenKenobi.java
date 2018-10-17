@@ -40,4 +40,10 @@ public class BenKenobi extends Equipment
         itemList.clear();
     }
 
+    @Override
+    public String getStringType()
+    {
+        return "BENKEN";
+    }
+
 }

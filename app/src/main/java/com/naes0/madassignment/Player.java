@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player
 {
+    public final int id;
     private int row;
     private int col;
     private int cash;
@@ -12,18 +13,30 @@ public class Player
     private double equipMass;
     private List<Equipment> equipmentlist;
     private static final double MAX_HEALTH = 100.0;
+    private static int nextId = 0;
 
-    public Player()
+    public Player(int id)
     {
+        this.id = id;
         this.row = 0;
         this.col = 0;
         this.cash = 0;
         this.health = MAX_HEALTH;
         this.equipMass = 0.0;
         this.equipmentlist = new ArrayList<Equipment>();
+        nextId = id + 1;
     }
 
+    public Player()
+    {
+        this(nextId);
+        nextId++;
+    }
 
+    public int getId()
+    {
+        return id;
+    }
 
     public int getRow()
     {

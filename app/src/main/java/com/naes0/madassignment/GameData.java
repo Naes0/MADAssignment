@@ -1,8 +1,10 @@
 package com.naes0.madassignment;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import com.naes0.madassignment.DatabaseSchema.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -108,7 +110,6 @@ public class GameData implements Serializable
         return itemList;
     }
 
-
     public List<Item> winningItemListSet()
     {
         List<Item> itemList = new ArrayList<Item>();
@@ -187,6 +188,43 @@ public class GameData implements Serializable
         }
         return item;
     }
+
+    public void addPlayer(Player player)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(PlayerTable.Cols.ID, player.getId());
+        cv.put(PlayerTable.Cols.ROW, player.getRow());
+        cv.put(PlayerTable.Cols.COL, player.getCol());
+        cv.put(PlayerTable.Cols.CASH, player.getCash());
+        cv.put(PlayerTable.Cols.HEALTH, player.getHealth());
+        cv.put(PlayerTable.Cols.EQUIPMASS, player.getEquipMass());
+        db.insert(AreaTable.NAME, null, cv);
+    }
+
+    public void addArea(Area area)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(AreaTable.Cols.ID, area.getId());
+        cv.put(AreaTable.Cols.TOWN, area.isTown());
+        cv.put(AreaTable.Cols.DESC, area.getDescription());
+        cv.put(AreaTable.Cols.STARRED, area.getStarred());
+        cv.put(AreaTable.Cols.EXPLORED, area.isExplored());
+        cv.put(AreaTable.Cols.UNEXP, area.getUnexplored());
+        cv.put(AreaTable.Cols.UNSTAR, area.getUnstarred());
+        db.insert(AreaTable.NAME, null, cv);
+    }
+
+    public void addItem(Item item)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(ItemTable.Cols.ID, item.getID());
+        cv.put(ItemTable.Cols.DESC, item.getDesc());
+        cv.put(ItemTable.Cols.VALUE, item.getValue());
+        cv.put(ItemTable.Cols.TYPE, item.getStringType());
+        cv.put(ItemTable.Cols.USE, item.getStringType());
+        db.insert(ItemTable.NAME, null, cv);
+    }
+
 
     public Player getPlayer()
     {

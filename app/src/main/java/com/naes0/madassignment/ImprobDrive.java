@@ -18,4 +18,10 @@ public class ImprobDrive extends Equipment
         data.regenerate();
         //regenerate map and items, player keeps items.
     }
+
+    @Override
+    public String getStringType()
+    {
+        return "IMPROB";
+    }
 }
