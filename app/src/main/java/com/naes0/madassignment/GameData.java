@@ -3,7 +3,7 @@ package com.naes0.madassignment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
 import com.naes0.madassignment.DatabaseSchema.*;
 
 import java.io.Serializable;
@@ -62,18 +62,19 @@ public class GameData implements Serializable
         {
             for (int j = 0; j < WIDTH; j++)
             {
-                grid[i][j] = new Area(generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
+                int position = i*10 + j;
+                grid[i][j] = new Area(position, generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
             }
         }
         grid[0][0].setExplored(true);
         setRandomWinningItems(grid, player);
-        for(int i = 0; i < HEIGHT; i++)
+        /*for(int i = 0; i < HEIGHT; i++)
         {
             for (int j = 0; j < WIDTH; j++)
             {
                 Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
             }
-        }
+        }*/
         return grid;
     }
 
@@ -198,6 +199,7 @@ public class GameData implements Serializable
         cv.put(PlayerTable.Cols.CASH, player.getCash());
         cv.put(PlayerTable.Cols.HEALTH, player.getHealth());
         cv.put(PlayerTable.Cols.EQUIPMASS, player.getEquipMass());
+        cv.put(PlayerTable.Cols.EQUIPMENT, player.getEquipment());
         db.insert(AreaTable.NAME, null, cv);
     }
 
@@ -211,20 +213,38 @@ public class GameData implements Serializable
         cv.put(AreaTable.Cols.EXPLORED, area.isExplored());
         cv.put(AreaTable.Cols.UNEXP, area.getUnexplored());
         cv.put(AreaTable.Cols.UNSTAR, area.getUnstarred());
+        cv.put(AreaTable.Cols.ITEMS, area.getItemNames());
         db.insert(AreaTable.NAME, null, cv);
     }
 
-    public void addItem(Item item)
+    public void updatePlayer(Player player)
     {
         ContentValues cv = new ContentValues();
-        cv.put(ItemTable.Cols.ID, item.getID());
-        cv.put(ItemTable.Cols.DESC, item.getDesc());
-        cv.put(ItemTable.Cols.VALUE, item.getValue());
-        cv.put(ItemTable.Cols.TYPE, item.getStringType());
-        cv.put(ItemTable.Cols.USE, item.getStringType());
-        db.insert(ItemTable.NAME, null, cv);
+        cv.put(PlayerTable.Cols.ID, player.getId());
+        cv.put(PlayerTable.Cols.ROW, player.getRow());
+        cv.put(PlayerTable.Cols.COL, player.getCol());
+        cv.put(PlayerTable.Cols.CASH, player.getCash());
+        cv.put(PlayerTable.Cols.HEALTH, player.getHealth());
+        cv.put(PlayerTable.Cols.EQUIPMASS, player.getEquipMass());
+        cv.put(PlayerTable.Cols.EQUIPMENT, player.getEquipment());
+        String[] whereValue = {};
+        db.update(PlayerTable.NAME, cv, PlayerTable.Cols.ID + " = " + player.getId(), whereValue);
     }
 
+    public void updateArea(Area area)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(AreaTable.Cols.ID, area.getId());
+        cv.put(AreaTable.Cols.TOWN, area.isTown());
+        cv.put(AreaTable.Cols.DESC, area.getDescription());
+        cv.put(AreaTable.Cols.STARRED, area.getStarred());
+        cv.put(AreaTable.Cols.EXPLORED, area.isExplored());
+        cv.put(AreaTable.Cols.UNEXP, area.getUnexplored());
+        cv.put(AreaTable.Cols.UNSTAR, area.getUnstarred());
+        cv.put(AreaTable.Cols.ITEMS, area.getItemNames());
+        String[] whereValue = {};
+        db.update(AreaTable.NAME, cv, AreaTable.Cols.ID + " = " + area.getId(), whereValue);
+    }
 
     public Player getPlayer()
     {

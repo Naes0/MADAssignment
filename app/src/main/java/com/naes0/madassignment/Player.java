@@ -12,8 +12,9 @@ public class Player
     private double health;
     private double equipMass;
     private List<Equipment> equipmentlist;
+    private String equipment;
     private static final double MAX_HEALTH = 100.0;
-    private static int nextId = 0;
+    private static int nextId;
 
     public Player(int id)
     {
@@ -24,6 +25,7 @@ public class Player
         this.health = MAX_HEALTH;
         this.equipMass = 0.0;
         this.equipmentlist = new ArrayList<Equipment>();
+        this.equipment = createEquipment();
         nextId = id + 1;
     }
 
@@ -31,6 +33,54 @@ public class Player
     {
         this(nextId);
         nextId++;
+    }
+
+    public String createEquipment()
+    {
+        String s = "";
+        for(Equipment e : equipmentlist)
+        {
+            s += e.getDesc() + ",";
+        }
+        return s;
+    }
+
+    public void setEquipment(String equipment)
+    {
+        this.equipment = equipment;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList)
+    {
+        this.equipmentlist = equipmentList;
+    }
+
+
+    public void setRow(int i)
+    {
+        row = i;
+    }
+
+    public void setCol(int j)
+    {
+        col = j;
+    }
+
+    public void setCash(int money)
+    {
+        cash = money;
+    }
+
+    public void setEquipMass(double equipMass)
+    {
+        this.equipMass = equipMass;
+    }
+
+
+
+    public String getEquipment()
+    {
+        return equipment;
     }
 
     public int getId()

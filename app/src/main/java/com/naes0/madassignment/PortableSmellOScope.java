@@ -5,7 +5,7 @@ import android.content.Intent;
 
 public class PortableSmellOScope extends Equipment
 {
-    public PortableSmellOScope(String desc, int value, int mass)
+    public PortableSmellOScope(String desc, int value, double mass)
     {
         super(desc, value, mass);
         setUsable(true);
@@ -21,6 +21,6 @@ public class PortableSmellOScope extends Equipment
     @Override
     public String getStringType()
     {
-        return "PSOS";
+        return "PortableSmellOScope";
     }
 }

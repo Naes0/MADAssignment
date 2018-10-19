@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BenKenobi extends Equipment
 {
-    public BenKenobi(String desc, int value, int mass)
+    public BenKenobi(String desc, int value, double mass)
     {
         super(desc, value, mass);
         setUsable(true);
@@ -43,7 +43,7 @@ public class BenKenobi extends Equipment
     @Override
     public String getStringType()
     {
-        return "BENKEN";
+        return "BenKenobi";
     }
 
 }

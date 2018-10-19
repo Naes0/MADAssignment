@@ -13,6 +13,7 @@ public class DatabaseSchema
             public static final String CASH = "cash";
             public static final String HEALTH = "health";
             public static final String EQUIPMASS = "equipmass";
+            public static final String EQUIPMENT = "equipment";
         }
     }
 
@@ -28,6 +29,7 @@ public class DatabaseSchema
             public static final String EXPLORED = "explored";
             public static final String UNEXP = "unexplored";
             public static final String UNSTAR = "unstarred";
+            public static final String ITEMS = "items";
         }
     }
 
@@ -40,7 +42,6 @@ public class DatabaseSchema
             public static final String DESC = "desc";
             public static final String VALUE = "value";
             public static final String TYPE = "type";
-            public static final String USE = "use";
         }
     }
 }

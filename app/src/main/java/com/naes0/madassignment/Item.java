@@ -6,11 +6,11 @@ public abstract class Item
 {
     private String desc;
     private int value;
-    private static int nextId = 0;
+    private int postion;
 
-    public int getNextId()
+    public void setPosition(int position)
     {
-        return nextId;
+        this.postion = position;
     }
 
     public void setValue(int value)

@@ -22,6 +22,6 @@ public class ImprobDrive extends Equipment
     @Override
     public String getStringType()
     {
-        return "IMPROB";
+        return "ImprobDrive";
     }
 }

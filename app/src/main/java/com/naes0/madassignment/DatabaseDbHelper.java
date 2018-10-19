@@ -26,7 +26,8 @@ public class DatabaseDbHelper extends SQLiteOpenHelper
                 PlayerTable.Cols.COL + ", " +
                 PlayerTable.Cols.CASH + ", " +
                 PlayerTable.Cols.HEALTH + ", " +
-                PlayerTable.Cols.EQUIPMASS + ")");
+                PlayerTable.Cols.EQUIPMASS + ", " +
+                PlayerTable.Cols.EQUIPMENT + ")");
 
         db.execSQL("CREATE TABLE " + AreaTable.NAME + "(" + "_id integer primary key autoincrement, " +
                 AreaTable.Cols.ID + ", " +
@@ -35,14 +36,8 @@ public class DatabaseDbHelper extends SQLiteOpenHelper
                 AreaTable.Cols.STARRED + ", " +
                 AreaTable.Cols.EXPLORED + ", " +
                 AreaTable.Cols.UNEXP + ", " +
-                AreaTable.Cols.UNSTAR + ")");
-
-        db.execSQL("CREATE TABLE " + ItemTable.NAME + "(" + "_id integer primary key autoincrement, " +
-                ItemTable.Cols.ID + ", " +
-                ItemTable.Cols.DESC + ", " +
-                ItemTable.Cols.VALUE + ", " +
-                ItemTable.Cols.TYPE + ", " +
-                ItemTable.Cols.USE + ")");
+                AreaTable.Cols.UNSTAR + ", " +
+                AreaTable.Cols.ITEMS + ")");
     }
 
     @Override

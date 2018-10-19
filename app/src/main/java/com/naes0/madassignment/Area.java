@@ -19,7 +19,7 @@ public class Area
     private final int structure;
     private int unExplored;
     private int unStarred;
-
+    private String itemNames;
     private static int nextId = 0;
 
     public Area(int id, List<Item> itemList, int northWest, int northEast, int southWest, int southEast)
@@ -30,14 +30,34 @@ public class Area
         starred = false;
         explored = false;
         this.itemList = itemList;
-
+        itemNames = setStringItems();
         this.terrainNorthWest = northWest;
         this.terrainNorthEast = northEast;
         this.terrainSouthWest = southWest;
         this.terrainSouthEast = southEast;
-        this.structure = setStructure();
-        this.unExplored = setUnexplored();
-        this.unStarred = setUnstarred();
+        this.structure = createStructure();
+        this.unExplored = createUnexplored();
+        this.unStarred = createUnstarred();
+        nextId = id + 1;
+    }
+
+    public Area(int id, boolean town, String description, boolean starred, boolean explored,
+                List<Item> items, int northWest, int northEast, int southWest, int southEast)
+    {
+        this.id = id;
+        this.town = town;
+        this.description = description;
+        this.starred = starred;
+        this.explored = explored;
+        this.itemList = items;
+        itemNames = setStringItems();
+        this.terrainNorthWest = northWest;
+        this.terrainNorthEast = northEast;
+        this.terrainSouthWest = southWest;
+        this.terrainSouthEast = southEast;
+        this.structure = createStructure();
+        this.unExplored = createUnexplored();
+        this.unStarred = createUnstarred();
         nextId = id + 1;
     }
 
@@ -58,7 +78,7 @@ public class Area
         return isTown;
     }
 
-    public int setStructure()
+    public int createStructure()
     {
         int x;
         if (isTown())
@@ -72,7 +92,7 @@ public class Area
         return x;
     }
 
-    public int setUnexplored()
+    public int createUnexplored()
     {
         int x;
         if (isExplored())
@@ -86,7 +106,7 @@ public class Area
         return x;
     }
 
-    public int setUnstarred()
+    public int createUnstarred()
     {
         int x;
         if (isStarred())
@@ -118,7 +138,12 @@ public class Area
     public void setStarred(boolean boo)
     {
         starred = boo;
-        unStarred = setUnstarred();
+        unStarred = createUnstarred();
+    }
+
+    public void setItemList(List<Item> itemList)
+    {
+        this.itemList = itemList;
     }
 
     public boolean getStarred()
@@ -129,7 +154,7 @@ public class Area
     public void setExplored(boolean boo)
     {
         explored = boo;
-        unExplored = setUnexplored();
+        unExplored = createUnexplored();
     }
 
     public boolean isStarred()
@@ -201,7 +226,22 @@ public class Area
     {
         return  structure;
     }
-    
+
+    public String getItemNames()
+    {
+        return  itemNames;
+    }
+
+    public String setStringItems()
+    {
+        String s = "";
+        for(Item item : itemList)
+        {
+            s += item.getDesc() + ",";
+        }
+        return s;
+    }
+
     public String printItemList()
     {
         String itemListstring = "";
