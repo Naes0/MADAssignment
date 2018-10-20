@@ -38,6 +38,7 @@ public class GameData implements Serializable
     public GameData(Context c)
     {
         this.player = new Player();
+        addPlayer(player);
         this.itemList = itemListSet();
         this.winningItemList = winningItemListSet();
         this.grid = generateGrid(this.player);
