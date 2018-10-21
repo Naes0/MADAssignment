@@ -237,7 +237,10 @@ public class Area
         String s = "";
         for(Item item : itemList)
         {
-            s += item.getDesc() + ",";
+            if(item != null)
+            {
+                s += item.getDesc() + ",";
+            }
         }
         return s;
     }

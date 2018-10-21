@@ -2,7 +2,9 @@ package com.naes0.madassignment;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.naes0.madassignment.DatabaseSchema.*;
 
@@ -31,18 +33,74 @@ public class GameData implements Serializable
         if (instance == null)
         {
             instance = new GameData(c);
+            if(!instance.dbContainsPlayer())
+            {
+                instance.playerToDB();
+            }
+            if(!instance.dbContainsGrid())
+            {
+                instance.gridToDB();
+            }
         }
+        instance.load();
+
+        /*String s = instance.getTableAsString("DB", AreaTable.NAME);
+        Log.d("DB", s);*/
+        String s2 = instance.getTableAsString("DB2", PlayerTable.NAME);
+        Log.d("DB2", s2);
         return instance;
+    }
+
+    public boolean dbContainsPlayer()
+    {
+        boolean boo = false;
+        DatabaseCursor cursor = new DatabaseCursor(db.query(PlayerTable.NAME, null, null, null, null ,null,null), itemList);
+        if (cursor.getCount() > 0)
+        {
+            boo = true;
+        }
+        return boo;
+    }
+
+    public boolean dbContainsGrid()
+    {
+        boolean boo = false;
+        DatabaseCursor cursor = new DatabaseCursor(db.query(AreaTable.NAME, null, null, null, null ,null,null), itemList);
+        if (cursor.getCount() > 0)
+        {
+            boo = true;
+        }
+        return boo;
+    }
+
+    public String getTableAsString(String TAG, String tableName) {
+        Log.d(TAG, "getTableAsString called");
+        String tableString = String.format("Table %s:\n", tableName);
+        Cursor allRows  = db.rawQuery("SELECT * FROM " + tableName, null);
+        if (allRows.moveToFirst() )
+        {
+            String[] columnNames = allRows.getColumnNames();
+            for(int i = 0; i < 1; i++)
+            {
+                for (String name: columnNames)
+                {
+                    tableString += String.format("%s: %s\n", name,
+                            allRows.getString(allRows.getColumnIndex(name)));
+                }
+                tableString += "\n";
+                allRows.moveToNext();
+            } //while (allRows.moveToNext());
+        }
+        return tableString;
     }
 
     public GameData(Context c)
     {
+        this.db = new DatabaseDbHelper(c.getApplicationContext()).getWritableDatabase();
         this.player = new Player();
-        addPlayer(player);
         this.itemList = itemListSet();
         this.winningItemList = winningItemListSet();
         this.grid = generateGrid(this.player);
-        this.db = new DatabaseDbHelper(c.getApplicationContext()).getWritableDatabase();
     }
 
     public void regenerate()
@@ -52,8 +110,18 @@ public class GameData implements Serializable
 
     public void reset()
     {
+        clearDatabase(PlayerTable.NAME);
+        clearDatabase(AreaTable.NAME);
         regenerate();
+        gridToDB();
         player = new Player();
+        playerToDB();
+    }
+
+    public void clearDatabase(String TABLE_NAME)
+    {
+        String clearDBQuery = "DELETE FROM " + TABLE_NAME;
+        db.execSQL(clearDBQuery);
     }
 
     public static Area[][] generateGrid(Player player)
@@ -63,8 +131,7 @@ public class GameData implements Serializable
         {
             for (int j = 0; j < WIDTH; j++)
             {
-                int position = i*10 + j;
-                grid[i][j] = new Area(position, generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
+                grid[i][j] = new Area(generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
             }
         }
         grid[0][0].setExplored(true);
@@ -73,7 +140,8 @@ public class GameData implements Serializable
         {
             for (int j = 0; j < WIDTH; j++)
             {
-                Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
+                instance.addArea(grid[i][j]);
+                //Log.d("TOWN", "grid[" + i + "][" + j + "] =" + grid[i][j].printItemList());
             }
         }*/
         return grid;
@@ -88,9 +156,15 @@ public class GameData implements Serializable
     {
         return grid[x][y];
     }
+
     public void setArea(int x, int y, Area area)
     {
         grid[x][y] = area;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
     }
 
     public List<Item> itemListSet()
@@ -191,6 +265,63 @@ public class GameData implements Serializable
         return item;
     }
 
+    public void gridToDB()
+    {
+        for(int i = 0; i < HEIGHT; i++)
+        {
+            for (int j = 0; j < WIDTH; j++)
+            {
+                instance.addArea(grid[i][j]);
+            }
+        }
+    }
+
+    public void playerToDB()
+    {
+        instance.addPlayer(player);
+    }
+
+    public void load()
+    {
+        loadPlayer();
+        loadArea();
+    }
+
+    public void loadPlayer()
+    {
+        DatabaseCursor cursor = new DatabaseCursor(db.query(PlayerTable.NAME, null, null, null, null ,null,null), itemList);
+        try
+        {
+            cursor.moveToFirst();
+            instance.setPlayer(cursor.getPlayer());
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
+    public void loadArea()
+    {
+        DatabaseCursor cursor = new DatabaseCursor(db.query(AreaTable.NAME, null, null, null, null ,null,null), itemList);
+        try
+        {
+            cursor.moveToFirst();
+                for(int i = 0; i < HEIGHT; i++)
+                {
+                    for (int j = 0; j < WIDTH; j++)
+                    {
+                        instance.setArea(i, j, cursor.getArea());
+                        cursor.moveToNext();
+                    }
+                }
+        }
+        finally
+        {
+            cursor.close();
+        }
+    }
+
     public void addPlayer(Player player)
     {
         ContentValues cv = new ContentValues();
@@ -201,7 +332,7 @@ public class GameData implements Serializable
         cv.put(PlayerTable.Cols.HEALTH, player.getHealth());
         cv.put(PlayerTable.Cols.EQUIPMASS, player.getEquipMass());
         cv.put(PlayerTable.Cols.EQUIPMENT, player.getEquipment());
-        db.insert(AreaTable.NAME, null, cv);
+        db.insert(PlayerTable.NAME, null, cv);
     }
 
     public void addArea(Area area)

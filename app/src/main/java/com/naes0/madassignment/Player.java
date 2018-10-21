@@ -21,7 +21,7 @@ public class Player
         this.id = id;
         this.row = 0;
         this.col = 0;
-        this.cash = 0;
+        this.cash = 50;
         this.health = MAX_HEALTH;
         this.equipMass = 0.0;
         this.equipmentlist = new ArrayList<Equipment>();
@@ -40,7 +40,10 @@ public class Player
         String s = "";
         for(Equipment e : equipmentlist)
         {
-            s += e.getDesc() + ",";
+            if(e != null)
+            {
+                s += e.getDesc() + ",";
+            }
         }
         return s;
     }
@@ -239,7 +242,7 @@ public class Player
         boolean boo = false;
         for (Equipment e : equipmentlist)
         {
-            if(e.getDesc().equals(item.getDesc()))
+            if(e != null && e.getDesc().equals(item.getDesc()))
             {
                 boo = true;
             }

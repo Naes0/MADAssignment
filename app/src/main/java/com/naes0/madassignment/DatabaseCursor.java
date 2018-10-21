@@ -39,7 +39,7 @@ public class DatabaseCursor extends CursorWrapper
         player.setHealth(health);
         player.setEquipMass(equipMass);
         player.setEquipmentList(equipmentList);
-        String s = player.createEquipment(  );
+        String s = player.createEquipment();
         player.setEquipment(s);
         return player;
     }
@@ -64,7 +64,7 @@ public class DatabaseCursor extends CursorWrapper
         {
             if(item.getDesc().equals(name))
             {
-                i = (Equipment) item;
+                i = item;
             }
         }
         return i;

@@ -3,7 +3,6 @@ package com.naes0.madassignment;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.hardware.Camera;
 
 import com.naes0.madassignment.DatabaseSchema.*;
 

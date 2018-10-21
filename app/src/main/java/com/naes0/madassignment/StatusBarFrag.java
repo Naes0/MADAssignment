@@ -56,6 +56,8 @@ public class StatusBarFrag extends Fragment
 
     public void update()
     {
+        GameData data2 = GameData.get(getContext());
+        player = data2.getPlayer();
         healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
         cashView.setText("Cash: $" + player.getCash());
         massView.setText("Mass: " + player.getEquipMass() + " kg");

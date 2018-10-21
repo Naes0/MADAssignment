@@ -44,7 +44,6 @@ public class NavigationActivity extends AppCompatActivity
         currArea = data.getCurrArea();
 
         initialiseComponents();
-        playerSetup();
         locationView.setText(player.getPos());
 
         FragmentManager fm = getSupportFragmentManager();
@@ -178,14 +177,12 @@ public class NavigationActivity extends AppCompatActivity
             startActivity(new Intent(NavigationActivity.this, MainActivity.class));
         }
         locationView.setText(player.getPos());
+        data.updatePlayer(player);
+        data.setPlayer(player);
         currArea = data.getCurrArea();
         currArea.setExplored(true);
+        data.updateArea(currArea);
         ((AreaInfoFrag) areaInfo).update();
         ((StatusBarFrag) statusBar).update();
-    }
-
-    public void playerSetup()
-    {
-        player.addCash(50);
     }
 }
