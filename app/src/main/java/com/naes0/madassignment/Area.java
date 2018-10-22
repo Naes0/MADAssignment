@@ -19,6 +19,7 @@ public class Area
     private int unExplored;
     private int unStarred;
     private String itemNames;
+
     private static int nextId = 0;
 
     public Area(int id, List<Item> itemList, int northWest, int northEast, int southWest, int southEast)
@@ -40,6 +41,7 @@ public class Area
         nextId = id + 1;
     }
 
+    //creates area based on imports and assigns its own id based on a static field.
     public Area(int id, boolean town, String description, boolean starred, boolean explored,
                 List<Item> items, int northWest, int northEast, int southWest, int southEast)
     {
@@ -66,6 +68,7 @@ public class Area
         nextId++;
     }
 
+    //returns boolean true if its a town. Has a 25% chance of being true
     public boolean randTown()
     {
         boolean isTown = false;
@@ -76,6 +79,7 @@ public class Area
         }
         return isTown;
     }
+
 
     public int createStructure()
     {

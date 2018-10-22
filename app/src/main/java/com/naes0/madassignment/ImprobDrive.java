@@ -11,6 +11,7 @@ public class ImprobDrive extends Equipment
         setUsable(true);
     }
 
+    //calls the gamedata regenerate method
     @Override
     public void use(Context c)
     {

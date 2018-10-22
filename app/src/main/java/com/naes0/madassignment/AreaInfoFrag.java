@@ -11,17 +11,14 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.util.Map;
-
 public class AreaInfoFrag extends Fragment
 {
-
     private TextView descView;
     private EditText descEdit;
     private Switch starred;
     private Area currArea;
     private GameData data;
-    private MapFragment mapFrag;
+    private MapFragment mapFrag; //contatins instance of the map fragment to preform communication.
 
     @Override
     public void onCreate(Bundle b)
@@ -64,6 +61,7 @@ public class AreaInfoFrag extends Fragment
             }
         });
 
+        //
         starred.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -99,9 +97,10 @@ public class AreaInfoFrag extends Fragment
         {
             wildOrTown = "Wilderness";
         }
-        return  wildOrTown;
+        return wildOrTown;
     }
 
+    //used to updates fields when you tap on he map.
     public void updateForArea(Area area)
     {
         currArea = area;
@@ -116,6 +115,7 @@ public class AreaInfoFrag extends Fragment
         this.mapFrag = mapFrag;
     }
 
+    //used to update the map when you edit the areas info.
     public void updateForMap()
     {
         if(mapFrag != null)

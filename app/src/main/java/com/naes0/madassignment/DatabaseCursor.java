@@ -16,6 +16,8 @@ public class DatabaseCursor extends CursorWrapper
         this.itemList = itemList;
     }
 
+    //player stores a String list of item names and references them for the database
+    //grabs all the fields from the player
     public Player getPlayer()
     {
         int id = getInt(getColumnIndex(PlayerTable.Cols.ID));
@@ -25,13 +27,13 @@ public class DatabaseCursor extends CursorWrapper
         double health = getDouble(getColumnIndex(PlayerTable.Cols.HEALTH));
         double equipMass = getDouble(getColumnIndex(PlayerTable.Cols.EQUIPMASS));
         String equipment = getString(getColumnIndex(PlayerTable.Cols.EQUIPMENT));
-        String[] parts = equipment.split(",");
-        List<Equipment> equipmentList = new ArrayList<Equipment>();
+        String[] parts = equipment.split(",");      //split the string on "," to get the item names in a array.
+        List<Equipment> equipmentList = new ArrayList<Equipment>();  //creating list to put in player
         for(int i = 0; i < parts.length; i++)
         {
-            if(!parts[i].equals(",") && !parts[i].equals(""))
+            if(!parts[i].equals(",") && !parts[i].equals(""))// if parts[] contains empty strings or "," skip them.
             {
-                Equipment e = getEquipment(parts[i]);
+                Equipment e = getEquipment(parts[i]); //get equipment for each item name from the parts array
                 if( e != null)
                 {
                     equipmentList.add(e);
@@ -76,6 +78,9 @@ public class DatabaseCursor extends CursorWrapper
         return i;
     }
 
+    // creates area based on fields obtained from the database
+    // gets the items in a similar way to player where its stored as a string
+    // and then use to get the correct item from a list and add it to the area.
     public Area getArea()
     {
         int id = getInt(getColumnIndex(AreaTable.Cols.ID));

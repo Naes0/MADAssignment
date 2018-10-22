@@ -32,26 +32,27 @@ public class GameData implements Serializable
     {
         if (instance == null)
         {
-            instance = new GameData(c);
-            if(!instance.dbContainsPlayer())
+            instance = new GameData(c); //create instance of gamedata
+            if(!instance.dbContainsPlayer()) //if the database contains a player do not add player to the db
             {
                 instance.playerToDB();
             }
-            if(!instance.dbContainsGrid())
+            if(!instance.dbContainsGrid()) //if the database contains the grid do not add the grid to the db.
             {
                 instance.gridToDB();
             }
         }
-        instance.load();
+        instance.load();// load memory from grid
 
 
         /*String s = instance.getTableAsString("DB", AreaTable.NAME);
-        Log.d("DB", s);*/
+        Log.d("DB", s);
         String s2 = instance.getTableAsString("DB2", PlayerTable.NAME);
-        Log.d("DB2", s2);
+        Log.d("DB2", s2);*/
         return instance;
     }
 
+    //database contains an instance of player
     public boolean dbContainsPlayer()
     {
         boolean boo = false;
@@ -63,6 +64,7 @@ public class GameData implements Serializable
         return boo;
     }
 
+    //database contiatns grid entries already
     public boolean dbContainsGrid()
     {
         boolean boo = false;
@@ -74,7 +76,9 @@ public class GameData implements Serializable
         return boo;
     }
 
-    public String getTableAsString(String TAG, String tableName) {
+    //used to see the output of the tables in the database given a table name.
+    public String getTableAsString(String TAG, String tableName)
+    {
         Log.d(TAG, "getTableAsString called");
         String tableString = String.format("Table %s:\n", tableName);
         Cursor allRows  = db.rawQuery("SELECT * FROM " + tableName, null);
@@ -104,6 +108,8 @@ public class GameData implements Serializable
         this.grid = generateGrid(this.player);
     }
 
+    // clears area table generates grid again and stores it in the db.
+    // used for improbability drive.
     public void regenerate()
     {
         clearDatabase(AreaTable.NAME);
@@ -111,6 +117,8 @@ public class GameData implements Serializable
         gridToDB();
     }
 
+    // hard resets everything from database and instance.
+    // used for the reset button.
     public void reset()
     {
         clearDatabase(PlayerTable.NAME);
@@ -127,6 +135,7 @@ public class GameData implements Serializable
         db.execSQL(clearDBQuery);
     }
 
+    //genereate grid for the size of HEIGHT and WIDTH
     public static Area[][] generateGrid(Player player)
     {
         Area[][] grid = new Area[HEIGHT][WIDTH];
@@ -170,6 +179,7 @@ public class GameData implements Serializable
         this.player = player;
     }
 
+    // item list stores items
     public List<Item> itemListSet()
     {
         List<Item> itemList = new ArrayList<Item>();
@@ -192,6 +202,7 @@ public class GameData implements Serializable
         return itemList;
     }
 
+    // list of all the winning items
     public List<Item> winningItemListSet()
     {
         List<Item> itemList = new ArrayList<Item>();
@@ -201,6 +212,7 @@ public class GameData implements Serializable
         return itemList;
     }
 
+    //generates a random item list
     public static List<Item> generateItemList()
     {
         List<Item> areaItemList = new ArrayList<Item>();
@@ -231,40 +243,42 @@ public class GameData implements Serializable
     public static Item getRandomItem()
     {
         Item item = null;
+        // multiply by 0.55 to make it the random number be between 0.0 and 0.55 which is needed
+        // to pick an item through on of the if's.
         double randomDouble = rand.nextDouble() * 0.55;
-        if(randomDouble <= 0.15)
+        if(randomDouble <= 0.15) //30%
         {
             item = itemList.get(0);//apple
         }
-        if( randomDouble > 0.15 && randomDouble <= 0.25)
+        if( randomDouble > 0.15 && randomDouble <= 0.25) //10%
         {
             item = itemList.get(1);//Mango
         }
-        if( randomDouble > 0.25 && randomDouble <= 0.30)
+        if( randomDouble > 0.25 && randomDouble <= 0.30) //5%
         {
             item = itemList.get(2);//Durian
         }
-        if( randomDouble > 0.50 && randomDouble <= 0.55)
+        if( randomDouble > 0.50 && randomDouble <= 0.55) //5%
         {
             item = itemList.get(3);//broccoli
         }
-        if( randomDouble > 0.30 && randomDouble <= 0.35)
+        if( randomDouble > 0.30 && randomDouble <= 0.35) //5%
         {
             item = itemList.get(4);//boots
         }
-        if( randomDouble > 0.35 && randomDouble <= 0.40)
+        if( randomDouble > 0.35 && randomDouble <= 0.40) //5%
         {
             item = itemList.get(5);//bf sword
         }
-        if( randomDouble > 0.40 && randomDouble <= 0.45)
+        if( randomDouble > 0.40 && randomDouble <= 0.45) //5%
         {
             item = itemList.get(6);//p-smelloscope
         }
-        if( randomDouble > 0.45 && randomDouble <= 0.475)
+        if( randomDouble > 0.45 && randomDouble <= 0.475) //2.5%
         {
             item = itemList.get(7);//improbability drive
         }
-        if( randomDouble > 0.475 && randomDouble <= 0.50)
+        if( randomDouble > 0.475 && randomDouble <= 0.50) //
         {
             item = itemList.get(8);//benkenobi
         }
@@ -293,6 +307,7 @@ public class GameData implements Serializable
         loadArea();
     }
 
+    //gets the first entry from player table and loads it to the instance.
     public void loadPlayer()
     {
         DatabaseCursor cursor = new DatabaseCursor(db.query(PlayerTable.NAME, null, null, null, null ,null,null), itemList);
@@ -307,6 +322,7 @@ public class GameData implements Serializable
         }
     }
 
+    // gets the areas and loads it to the instances grid.
     public void loadArea()
     {
         DatabaseCursor cursor = new DatabaseCursor(db.query(AreaTable.NAME, null, null, null, null ,null,null), itemList);

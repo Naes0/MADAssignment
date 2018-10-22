@@ -15,6 +15,9 @@ public class BenKenobi extends Equipment
         setUsable(true);
     }
 
+    //iterates through all items in the current area.
+    //adds them to the plays inventory without cash needed.
+    //then clears the list and the string version of the list.
     @Override
     public void use(Context c)
     {
@@ -22,7 +25,7 @@ public class BenKenobi extends Equipment
         Player player = data.getPlayer();
         Area currArea = data.getCurrArea();
         List<Item> itemList = currArea.getitemList();
-        for (Item item : itemList)
+        for(Item item : itemList)
         {
             try
             {

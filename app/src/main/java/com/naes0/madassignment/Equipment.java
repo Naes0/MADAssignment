@@ -39,11 +39,13 @@ public class Equipment extends Item
     {
     }
 
+    // used to determine whether the equipment
     public boolean isUsable()
     {
         return usable;
     }
 
+    // set an item to be usable or unusable.
     public void setUsable(Boolean boo)
     {
         usable = boo;
