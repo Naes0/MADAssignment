@@ -85,8 +85,9 @@ public class WildernessActivity extends AppCompatActivity
                         data.reset();
                         startActivity(new Intent(WildernessActivity.this, MainActivity.class));
                     }
-
                     currArea.removeItem(pickItem);
+                    data.updateArea(currArea);
+                    data.updatePlayer(player);
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();
@@ -105,7 +106,9 @@ public class WildernessActivity extends AppCompatActivity
                 if (dropItem != null)
                 {
                     player.removeEquipment(dropItem);
+                    data.updatePlayer(player);
                     currArea.addItem(dropItem);
+                    data.updateArea(currArea);
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();
@@ -119,6 +122,8 @@ public class WildernessActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                data.updatePlayer(player);
+                data.updateArea(currArea);
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 finish();
@@ -134,10 +139,13 @@ public class WildernessActivity extends AppCompatActivity
                 if(dropItem != null && dropItem.isUsable())
                 {
                     dropItem.use(WildernessActivity.this);
+                    update();
                     player.removeEquipment(dropItem);
+                    data.updatePlayer(player);
                     update();
                     ((SellListFragment) dropFrameFrag).update();
                     ((BuyListFragment) pickFrameFrag).update();
+                    ((StatusBarFrag) statusBar).update();
                     ((SellListFragment) dropFrameFrag).clearSelection();
                 }
             }
@@ -149,6 +157,8 @@ public class WildernessActivity extends AppCompatActivity
     {
         data = GameData.get(getApplicationContext());
         player = data.getPlayer();
-        currArea = data.getArea(player.getRow(), player.getCol());
+        currArea = data.getCurrArea();
+        data.updatePlayer(player);
+        data.updateArea(currArea);
     }
 }

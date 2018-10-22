@@ -11,7 +11,6 @@ public class Area
     private boolean starred;
     private boolean explored;
     private List<Item> itemList;
-
     private final int terrainNorthWest;
     private final int terrainSouthWest;
     private final int terrainNorthEast;
@@ -141,6 +140,11 @@ public class Area
         unStarred = createUnstarred();
     }
 
+    public void setItemNames(String s)
+    {
+        this.itemNames = s;
+    }
+
     public void setItemList(List<Item> itemList)
     {
         this.itemList = itemList;
@@ -180,11 +184,13 @@ public class Area
     public void addItem(Item item)
     {
         itemList.add(item);
+        setItemNames(setStringItems());
     }
 
     public void removeItem(Item item)
     {
         itemList.remove(item);
+        setItemNames(setStringItems());
     }
 
     public List<Item> getitemList()

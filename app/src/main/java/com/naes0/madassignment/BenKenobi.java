@@ -27,6 +27,8 @@ public class BenKenobi extends Equipment
             try
             {
                 player.addItemNoCash(item);
+                data.setPlayer(player);
+                data.updatePlayer(player);
             }
             catch(WinException e)
             {
@@ -38,6 +40,8 @@ public class BenKenobi extends Equipment
             }
         }
         itemList.clear();
+        currArea.setItemNames("");
+        data.updateArea(currArea);
     }
 
     @Override

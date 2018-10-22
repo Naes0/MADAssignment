@@ -32,16 +32,4 @@ public class DatabaseSchema
             public static final String ITEMS = "items";
         }
     }
-
-    public static class ItemTable
-    {
-        public static final String NAME = "items";
-        public static class Cols
-        {
-            public static final String ID = "item_id";
-            public static final String DESC = "desc";
-            public static final String VALUE = "value";
-            public static final String TYPE = "type";
-        }
-    }
 }

@@ -44,6 +44,7 @@ public class GameData implements Serializable
         }
         instance.load();
 
+
         /*String s = instance.getTableAsString("DB", AreaTable.NAME);
         Log.d("DB", s);*/
         String s2 = instance.getTableAsString("DB2", PlayerTable.NAME);
@@ -105,17 +106,19 @@ public class GameData implements Serializable
 
     public void regenerate()
     {
+        clearDatabase(AreaTable.NAME);
         grid = generateGrid(player);
+        gridToDB();
     }
 
     public void reset()
     {
         clearDatabase(PlayerTable.NAME);
         clearDatabase(AreaTable.NAME);
-        regenerate();
-        gridToDB();
         player = new Player();
         playerToDB();
+        grid = generateGrid(player);
+        gridToDB();
     }
 
     public void clearDatabase(String TABLE_NAME)
@@ -134,7 +137,7 @@ public class GameData implements Serializable
                 grid[i][j] = new Area(generateItemList(), R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);
             }
         }
-        grid[0][0].setExplored(true);
+        grid[player.getRow()][player.getCol()].setExplored(true);
         setRandomWinningItems(grid, player);
         /*for(int i = 0; i < HEIGHT; i++)
         {
@@ -182,7 +185,10 @@ public class GameData implements Serializable
         itemList.add(new PortableSmellOScope("Portable Smell-O-Scope", 25, 5 ));
         itemList.add(new ImprobDrive("Improbability Drive", 10, Math.floor(-Math.PI*100)/100));
         itemList.add(new BenKenobi("BenKenobi", 50, 20 ));
-
+        //winning items
+        itemList.add(new Equipment("Jade Monkey", 10, 7 ));
+        itemList.add(new Equipment("Roadmap", 10, 3 ));
+        itemList.add(new Equipment("Ice Scraper", 10, 12 ));
         return itemList;
     }
 

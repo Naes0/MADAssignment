@@ -40,7 +40,7 @@ public class AreaInfoFrag extends Fragment
         descEdit = (EditText) view.findViewById(R.id.descEdit);
         starred = (Switch) view.findViewById(R.id.starred);
 
-        descView.setText(setWildOrTown());
+        update();
 
         descEdit.addTextChangedListener(new TextWatcher()
         {
@@ -54,7 +54,7 @@ public class AreaInfoFrag extends Fragment
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
                 currArea.setDescription(charSequence.toString());
-
+                data.updateArea(currArea);
             }
 
             @Override
@@ -71,7 +71,9 @@ public class AreaInfoFrag extends Fragment
             {
                 starred.setChecked(!currArea.getStarred());
                 currArea.setStarred(!currArea.getStarred());
+                data.updateArea(currArea);
                 updateForMap();
+                data.updateArea(currArea);
             }
         });
 
@@ -106,6 +108,7 @@ public class AreaInfoFrag extends Fragment
         descView.setText(setWildOrTown());
         descEdit.setText(area.getDescription());
         starred.setChecked(area.getStarred());
+        data.updateArea(area);
     }
 
     public void setMapFrag(MapFragment mapFrag)
@@ -119,6 +122,5 @@ public class AreaInfoFrag extends Fragment
         {
             mapFrag.update();
         }
-
     }
 }

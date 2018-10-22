@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class StatusBarFrag extends Fragment
 {
     private TextView cashView;
@@ -36,9 +38,9 @@ public class StatusBarFrag extends Fragment
         massView = (TextView) view.findViewById(R.id.mass);
         restartButton = (Button) view.findViewById(R.id.reset);
 
-        healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
+        healthView.setText("Health: " +  new DecimalFormat("#.##").format(player.getHealth()) + "/100.0");
         cashView.setText("Cash: $" + player.getCash());
-        massView.setText("Mass: " + player.getEquipMass() + " kg");
+        massView.setText("Mass: " +new DecimalFormat("#.##").format(player.getEquipMass()) + " kg");
 
         restartButton.setOnClickListener(new View.OnClickListener()
         {
@@ -58,8 +60,8 @@ public class StatusBarFrag extends Fragment
     {
         GameData data2 = GameData.get(getContext());
         player = data2.getPlayer();
-        healthView.setText("Health: " + Double.toString(player.getHealth()) + "/100.0");
+        healthView.setText("Health: " +  new DecimalFormat("#.##").format(player.getHealth()) + "/100.0");
         cashView.setText("Cash: $" + player.getCash());
-        massView.setText("Mass: " + player.getEquipMass() + " kg");
+        massView.setText("Mass: " +new DecimalFormat("#.##").format(player.getEquipMass()) + " kg");
     }
 }

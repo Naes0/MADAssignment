@@ -91,6 +91,8 @@ public class MarketActivity extends AppCompatActivity
                        data.reset();
                        startActivity(new Intent(MarketActivity.this, MainActivity.class));
                    }
+                   data.updateArea(currArea);
+                   data.updatePlayer(player);
                    ((SellListFragment) sellFrameFrag).update();
                    ((BuyListFragment) buyFrameFrag).update();
                    ((StatusBarFrag) statusBar).update();
@@ -111,6 +113,8 @@ public class MarketActivity extends AppCompatActivity
                     player.removeEquipment(sellItem);
                     player.addCash((int) ((double)sellItem.getValue()*0.75));
                     currArea.addItem(sellItem);
+                    data.updateArea(currArea);
+                    data.updatePlayer(player);
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();
@@ -154,6 +158,8 @@ public class MarketActivity extends AppCompatActivity
         data = GameData.get(getApplicationContext());
         player = data.getPlayer();
         currArea = data.getCurrArea();
+        data.updateArea(currArea);
+        data.updatePlayer(player);
     }
 
 }

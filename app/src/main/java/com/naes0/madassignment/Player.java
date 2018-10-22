@@ -79,8 +79,6 @@ public class Player
         this.equipMass = equipMass;
     }
 
-
-
     public String getEquipment()
     {
         return equipment;
@@ -167,6 +165,7 @@ public class Player
     {
         equipmentlist.add(equip);
         addEquipMass(equip.getMassOrHealth());
+        setEquipment(createEquipment());
         boolean sword = false;
         boolean shield = false;
         boolean necklace = false;
@@ -226,6 +225,7 @@ public class Player
     {
         equipmentlist.remove(equip);
         addEquipMass(-equip.getMassOrHealth());
+        setEquipment(createEquipment());
     }
 
     public void decreaseHealth() throws DeadException

@@ -101,6 +101,7 @@ public class SellListFragment extends Fragment
         data = GameData.get(getContext());
         player = data.getPlayer();
         equipmentList = player.getEquipmentlist();
+        data.updatePlayer(player);
         adapter.notifyDataSetChanged();
     }
 

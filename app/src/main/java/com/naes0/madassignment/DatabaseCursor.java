@@ -29,8 +29,14 @@ public class DatabaseCursor extends CursorWrapper
         List<Equipment> equipmentList = new ArrayList<Equipment>();
         for(int i = 0; i < parts.length; i++)
         {
-            Equipment e = getEquipment(parts[i]);
-            equipmentList.add(e);
+            if(!parts[i].equals(",") && !parts[i].equals(""))
+            {
+                Equipment e = getEquipment(parts[i]);
+                if( e != null)
+                {
+                    equipmentList.add(e);
+                }
+            }
         }
         Player player = new Player(id);
         player.setRow(row);
@@ -82,8 +88,13 @@ public class DatabaseCursor extends CursorWrapper
         List<Item> items = new ArrayList<Item>();
         for(int i = 0; i < parts.length; i++)
         {
-            Item item = getItem(parts[i]);
-            items.add(item);
+            if(!parts[i].equals(",") && !parts[i].equals(""))
+            {
+                Item item = getItem(parts[i]);
+
+                    items.add(item);
+
+            }
         }
         Area area = new Area(id, town, desc, starred, explored, items,
                 R.drawable.ic_grass1, R.drawable.ic_grass3,R.drawable.ic_grass2, R.drawable.ic_grass4);

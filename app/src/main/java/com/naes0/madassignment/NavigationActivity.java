@@ -144,6 +144,7 @@ public class NavigationActivity extends AppCompatActivity
     {
         if(requestCode == REQUEST_CODE && resultCode == RESULT_OK)
         {
+            player = data.getPlayer();
             ((AreaInfoFrag)areaInfo).update();
             ((StatusBarFrag) statusBar).update();
         }
@@ -177,10 +178,10 @@ public class NavigationActivity extends AppCompatActivity
             startActivity(new Intent(NavigationActivity.this, MainActivity.class));
         }
         locationView.setText(player.getPos());
-        data.updatePlayer(player);
         data.setPlayer(player);
         currArea = data.getCurrArea();
         currArea.setExplored(true);
+        data.updatePlayer(player);
         data.updateArea(currArea);
         ((AreaInfoFrag) areaInfo).update();
         ((StatusBarFrag) statusBar).update();
