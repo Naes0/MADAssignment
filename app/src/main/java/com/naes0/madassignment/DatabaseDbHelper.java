@@ -34,8 +34,6 @@ public class DatabaseDbHelper extends SQLiteOpenHelper
                 AreaTable.Cols.DESC + ", " +
                 AreaTable.Cols.STARRED + ", " +
                 AreaTable.Cols.EXPLORED + ", " +
-                AreaTable.Cols.UNEXP + ", " +
-                AreaTable.Cols.UNSTAR + ", " +
                 AreaTable.Cols.ITEMS + ")");
     }
 

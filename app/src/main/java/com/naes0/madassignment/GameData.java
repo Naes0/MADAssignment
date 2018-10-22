@@ -365,8 +365,6 @@ public class GameData implements Serializable
         cv.put(AreaTable.Cols.DESC, area.getDescription());
         cv.put(AreaTable.Cols.STARRED, area.getStarred());
         cv.put(AreaTable.Cols.EXPLORED, area.isExplored());
-        cv.put(AreaTable.Cols.UNEXP, area.getUnexplored());
-        cv.put(AreaTable.Cols.UNSTAR, area.getUnstarred());
         cv.put(AreaTable.Cols.ITEMS, area.getItemNames());
         db.insert(AreaTable.NAME, null, cv);
     }
@@ -393,8 +391,6 @@ public class GameData implements Serializable
         cv.put(AreaTable.Cols.DESC, area.getDescription());
         cv.put(AreaTable.Cols.STARRED, area.getStarred());
         cv.put(AreaTable.Cols.EXPLORED, area.isExplored());
-        cv.put(AreaTable.Cols.UNEXP, area.getUnexplored());
-        cv.put(AreaTable.Cols.UNSTAR, area.getUnstarred());
         cv.put(AreaTable.Cols.ITEMS, area.getItemNames());
         String[] whereValue = {};
         db.update(AreaTable.NAME, cv, AreaTable.Cols.ID + " = " + area.getId(), whereValue);

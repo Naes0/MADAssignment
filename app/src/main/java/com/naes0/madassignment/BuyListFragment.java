@@ -1,5 +1,6 @@
 package com.naes0.madassignment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ public class BuyListFragment extends Fragment
     private List<Item> itemList;
     private ItemAdapter adapter;
     private Item selectedItem;
+    private int selectedPos = RecyclerView.NO_POSITION;
+
 
     @Override
     public void onCreate(Bundle b)
@@ -61,7 +64,15 @@ public class BuyListFragment extends Fragment
                 @Override
                 public void onClick(View v)
                 {
-                   selectedItem = item;
+                    if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
+
+                    selectedItem = item;
+                    adapter.notifyItemChanged(selectedPos);
+                    selectedPos = getAdapterPosition();
+                    adapter.notifyItemChanged(selectedPos);
+                    //name.setTextColor(getResources().getColor(R.color.white));
+                    //value.setTextColor(getResources().getColor(R.color.white));
+                    //masshealth.setTextColor(getResources().getColor(R.color.white));
                 }
             });
         }
@@ -73,11 +84,13 @@ public class BuyListFragment extends Fragment
             masshealth.setText(item.getStringHealthMass() + Double.toString(item.getMassOrHealth()));
             this.item = item;
         }
+
     }
 
     //adapter
     public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder>
     {
+
         @Override
         public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -88,6 +101,18 @@ public class BuyListFragment extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
+            if(selectedPos == position)
+            {
+                holder.name.setTextColor(Color.WHITE);
+                holder.value.setTextColor(Color.WHITE);
+                holder.masshealth.setTextColor(Color.WHITE);
+            }
+            else
+            {
+                holder.name.setTextColor(Color.BLACK);
+                holder.value.setTextColor(Color.BLACK);
+                holder.masshealth.setTextColor(Color.BLACK);
+            }
             holder.bind(itemList.get(position));
         }
 

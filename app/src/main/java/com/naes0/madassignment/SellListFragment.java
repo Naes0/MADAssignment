@@ -1,5 +1,6 @@
 package com.naes0.madassignment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ public class SellListFragment extends Fragment
     private List<Equipment> equipmentList;
     private ItemAdapter adapter;
     private Equipment selectedEquipment;
+    private int selectedPos = RecyclerView.NO_POSITION;
+
 
     @Override
     public void onCreate(Bundle b)
@@ -59,7 +62,15 @@ public class SellListFragment extends Fragment
                 @Override
                 public void onClick(View v)
                 {
+                    if (getAdapterPosition() == RecyclerView.NO_POSITION)
+                    {
+                        return;
+                    }
+
                     selectedEquipment = equipment;
+                    adapter.notifyItemChanged(selectedPos);
+                    selectedPos = getAdapterPosition();
+                    adapter.notifyItemChanged(selectedPos);
                 }
             });
         }
@@ -86,6 +97,18 @@ public class SellListFragment extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
+            if(selectedPos == position)
+            {
+                holder.name.setTextColor(Color.WHITE);
+                holder.value.setTextColor(Color.WHITE);
+                holder.masshealth.setTextColor(Color.WHITE);
+            }
+            else
+            {
+                holder.name.setTextColor(Color.BLACK);
+                holder.value.setTextColor(Color.BLACK);
+                holder.masshealth.setTextColor(Color.BLACK);
+            }
             holder.bind(equipmentList.get(position));
         }
 

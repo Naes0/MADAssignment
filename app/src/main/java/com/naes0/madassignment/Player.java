@@ -235,6 +235,10 @@ public class Player
         {
             throw new DeadException("You lost all your health!\n            You Lose!");
         }
+        else if ( health > 100.0)
+        {
+            setHealth(100.0);
+        }
     }
 
     public boolean contains(Item item)

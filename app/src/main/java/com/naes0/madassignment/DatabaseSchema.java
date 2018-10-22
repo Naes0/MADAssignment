@@ -27,8 +27,6 @@ public class DatabaseSchema
             public static final String DESC = "desc";
             public static final String STARRED = "starred";
             public static final String EXPLORED = "explored";
-            public static final String UNEXP = "unexplored";
-            public static final String UNSTAR = "unstarred";
             public static final String ITEMS = "items";
         }
     }
