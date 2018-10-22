@@ -128,6 +128,8 @@ public class MarketActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                data.updatePlayer(player);
+                data.updateArea(currArea);
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 finish();
@@ -143,10 +145,13 @@ public class MarketActivity extends AppCompatActivity
                 if(sellItem != null && sellItem.isUsable())
                 {
                     sellItem.use(MarketActivity.this);
+                    update();
                     player.removeEquipment(sellItem);
+                    data.updatePlayer(player);
                     update();
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
+                    ((StatusBarFrag) statusBar).update();
                     ((SellListFragment) sellFrameFrag).clearSelection();
                 }
             }
