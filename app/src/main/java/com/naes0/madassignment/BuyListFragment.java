@@ -67,12 +67,10 @@ public class BuyListFragment extends Fragment
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
                     selectedItem = item;
+                    //highlights the selected
                     adapter.notifyItemChanged(selectedPos);
                     selectedPos = getAdapterPosition();
                     adapter.notifyItemChanged(selectedPos);
-                    //name.setTextColor(getResources().getColor(R.color.white));
-                    //value.setTextColor(getResources().getColor(R.color.white));
-                    //masshealth.setTextColor(getResources().getColor(R.color.white));
                 }
             });
         }
@@ -101,6 +99,7 @@ public class BuyListFragment extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
+            //highlights the selected viewholder.
             if(selectedPos == position)
             {
                 holder.name.setTextColor(Color.WHITE);

@@ -35,6 +35,7 @@ public class Player
         nextId++;
     }
 
+    //returns string of item names separated by commas to store items for areas in the database
     public String createEquipment()
     {
         String s = "";
@@ -161,11 +162,14 @@ public class Player
         return equipmentlist;
     }
 
+    // adds equipment, updates mass, updates the String version of he equipment list.
+    //
     public void addEquipment(Equipment equip) throws WinException
     {
         equipmentlist.add(equip);
         addEquipMass(equip.getMassOrHealth());
         setEquipment(createEquipment());
+        //win check if the player contains these items throw a win exception.
         boolean sword = false;
         boolean shield = false;
         boolean necklace = false;
@@ -190,6 +194,8 @@ public class Player
         }
     }
 
+    // if the player has enough money to purchase the item it adds it to the player, decreases cash
+    // returns true if the purchase is successful and false if it isn't.
     public boolean addItem(Item buyItem) throws WinException
     {
         boolean boo = false;
@@ -209,6 +215,7 @@ public class Player
         return boo;
     }
 
+    // the items get added to the player regardless
     public void addItemNoCash(Item buyItem) throws WinException
     {
         if (buyItem instanceof Equipment)
@@ -221,6 +228,7 @@ public class Player
         }
     }
 
+    // removes equipment from player
     public void removeEquipment(Equipment equip)
     {
         equipmentlist.remove(equip);
@@ -228,6 +236,8 @@ public class Player
         setEquipment(createEquipment());
     }
 
+    // decrease the health, if its 0 or < 0 then throw dead exception, if it causes health to go
+    // above 100 then set it too 100.0. (occurs if you have 4-5 improbability drives due to -mass)
     public void decreaseHealth() throws DeadException
     {
         setHealth(Math.max(0.0, health - 5.0 - (equipMass / 2.0)));

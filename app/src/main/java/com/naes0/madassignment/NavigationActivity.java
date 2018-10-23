@@ -161,6 +161,10 @@ public class NavigationActivity extends AppCompatActivity
         overviewButton = (Button) findViewById(R.id.overview);
     }
 
+    // decreases players health, updates view for location, sets the player to data.
+    // gets the current area and sets it, set the current area to explored.
+    // updates the player and area in the database.
+    //updates the areainfo and statusbar fragments.
     public void playerMoves()
     {
         try

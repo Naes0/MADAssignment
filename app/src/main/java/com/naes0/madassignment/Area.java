@@ -80,7 +80,7 @@ public class Area
         return isTown;
     }
 
-
+    //assigns building or tree image based on if its a town or wilderness
     public int createStructure()
     {
         int x;
@@ -95,6 +95,7 @@ public class Area
         return x;
     }
 
+    //adds a black semi transparent square over unexplored areas
     public int createUnexplored()
     {
         int x;
@@ -109,6 +110,7 @@ public class Area
         return x;
     }
 
+    //adds stars to stared areas
     public int createUnstarred()
     {
         int x;

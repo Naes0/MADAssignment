@@ -78,9 +78,12 @@ public class SOSFrag extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
+            //gets the itemName and location string from the list
             String itemNameLocation = stringList.get(position);
+            //split on "|||" to get the [name, east/west, north/south]
             String[] parts = itemNameLocation.split("\\|\\|\\|");
             Log.d("STRING", parts.toString());
+            //pass parts into bind
             holder.bind(parts[0], parts[1], parts[2]);
         }
 
@@ -97,11 +100,15 @@ public class SOSFrag extends Fragment
         int pRow = player.getRow();
         int pCol = player.getCol();
 
+        //calculates the upper and lower bounds of the 2x2 grid to display items from.
         int upperRow = Math.max(pRow-2, 0);
         int upperCol = Math.max(0, pCol-2);
         int lowerRow = Math.min(pRow+2, GameData.HEIGHT-1);
         int lowerCol = Math.min(pCol+2, GameData.WIDTH-1);
 
+        // iterates through the 2x2 grid getting the itemName and its east/west position and
+        // north/south position, stores all three variables in a string sepereated by "|||"
+        // added that string to the list for the recycler view.
         for(int i = upperRow; i <= lowerRow; i++)
         {
             for(int j = upperCol; j <= lowerCol; j++ )
@@ -119,6 +126,8 @@ public class SOSFrag extends Fragment
         return stringList;
     }
 
+    // calculates the amount of cells in the east/west direction based on current location of player
+    // and the current location of item.
     public String getEastWest(int j)
     {
         String eastWest = "";
@@ -131,7 +140,7 @@ public class SOSFrag extends Fragment
         {
             eastWest = (currJ-j) + " West";
         }
-        else
+        else //if they're equal
         {
             eastWest = "Current Col";
         }
@@ -139,6 +148,8 @@ public class SOSFrag extends Fragment
         return eastWest;
     }
 
+    // calculates the amount of cells in the north/south direction based on current location of player
+    // and the current location of item.
     public String getNorthSouth(int i)
     {
         String northSouth = "";
@@ -151,7 +162,7 @@ public class SOSFrag extends Fragment
         {
             northSouth = (i - currI) + " South";
         }
-        else
+        else //they're equal
         {
             northSouth = "Current Row";
         }

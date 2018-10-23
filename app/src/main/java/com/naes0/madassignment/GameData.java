@@ -44,7 +44,6 @@ public class GameData implements Serializable
         }
         instance.load();// load memory from grid
 
-
         /*String s = instance.getTableAsString("DB", AreaTable.NAME);
         Log.d("DB", s);
         String s2 = instance.getTableAsString("DB2", PlayerTable.NAME);

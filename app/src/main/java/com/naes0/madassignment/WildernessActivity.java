@@ -64,6 +64,7 @@ public class WildernessActivity extends AppCompatActivity
             fm.beginTransaction().add(R.id.statusbar, statusBar).commit();
         }
 
+        //similar to the Market activity except you dont pay for items.
         pickButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -97,6 +98,7 @@ public class WildernessActivity extends AppCompatActivity
             }
         });
 
+        // similar to the market activity except you dont gain money from dropping items.
         dropButton.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -130,6 +132,7 @@ public class WildernessActivity extends AppCompatActivity
             }
         });
 
+        // same as markets use.
         useButton.setOnClickListener(new View.OnClickListener()
         {
             @Override

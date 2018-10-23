@@ -72,7 +72,9 @@ public class MarketActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                // get the selected item from he buyFrameFragment
                buyItem = ((BuyListFragment) buyFrameFrag).getSelectedItem();
+               //safety check incase the user hasnt selected anything
                if (buyItem != null)
                {
                    try
@@ -91,11 +93,14 @@ public class MarketActivity extends AppCompatActivity
                        data.reset();
                        startActivity(new Intent(MarketActivity.this, MainActivity.class));
                    }
+                   //update the area and player in the database
                    data.updateArea(currArea);
                    data.updatePlayer(player);
+                   //update the sellfragment, buyfragment and statusbar
                    ((SellListFragment) sellFrameFrag).update();
                    ((BuyListFragment) buyFrameFrag).update();
                    ((StatusBarFrag) statusBar).update();
+                   //clear the selection
                    ((BuyListFragment) buyFrameFrag).clearSelection();
                }
 
@@ -107,17 +112,22 @@ public class MarketActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                //obtain selected item from sellFragment
                 sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
+                // safety check if the user hasnt selected anything
                 if(sellItem != null)
                 {
                     player.removeEquipment(sellItem);
-                    player.addCash((int) ((double)sellItem.getValue()*0.75));
+                    player.addCash((int) ((double)sellItem.getValue()*0.75)); //sell item for 75% of its value.
                     currArea.addItem(sellItem);
+                    //update player and area to database
                     data.updateArea(currArea);
                     data.updatePlayer(player);
+                    //update the sellfragment, buyfragment and statusbar
                     ((SellListFragment) sellFrameFrag).update();
                     ((BuyListFragment) buyFrameFrag).update();
                     ((StatusBarFrag) statusBar).update();
+                    //clear the selection
                     ((SellListFragment) sellFrameFrag).clearSelection();
                 }
             }
@@ -128,6 +138,7 @@ public class MarketActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                //update database on leave
                 data.updatePlayer(player);
                 data.updateArea(currArea);
                 Intent intent = new Intent();
@@ -142,10 +153,11 @@ public class MarketActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 sellItem = ((SellListFragment) sellFrameFrag).getSelectedEquipment();
+                //make sure a selection has been made and its a usable item
                 if(sellItem != null && sellItem.isUsable())
                 {
-                    sellItem.use(MarketActivity.this);
-                    update();
+                    sellItem.use(MarketActivity.this); //excute the items use method
+                    update(); //update the data in gamedata
                     player.removeEquipment(sellItem);
                     data.updatePlayer(player);
                     update();

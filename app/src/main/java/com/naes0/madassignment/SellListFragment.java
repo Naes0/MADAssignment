@@ -68,6 +68,7 @@ public class SellListFragment extends Fragment
                     }
 
                     selectedEquipment = equipment;
+                    //notifys adapter
                     adapter.notifyItemChanged(selectedPos);
                     selectedPos = getAdapterPosition();
                     adapter.notifyItemChanged(selectedPos);
@@ -97,6 +98,7 @@ public class SellListFragment extends Fragment
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position)
         {
+            //used to highlight the selected viewholder.
             if(selectedPos == position)
             {
                 holder.name.setTextColor(Color.WHITE);
@@ -107,7 +109,6 @@ public class SellListFragment extends Fragment
             {
                 holder.name.setTextColor(Color.BLACK);
                 holder.value.setTextColor(Color.BLACK);
-                holder.masshealth.setTextColor(Color.BLACK);
             }
             holder.bind(equipmentList.get(position));
         }

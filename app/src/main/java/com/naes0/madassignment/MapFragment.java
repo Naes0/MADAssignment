@@ -36,14 +36,18 @@ public class MapFragment extends Fragment
 
     private class GridViewHolder extends RecyclerView.ViewHolder
     {
-
+        //1-4 grass
         private ImageView imageView1;
         private ImageView imageView2;
         private ImageView imageView3;
         private ImageView imageView4;
+        //5 structure
         private ImageView imageView5;
+        //6 unexplored
         private ImageView imageView6;
+        //7 starred
         private ImageView imageView7;
+        //8 player
         private ImageView imageView8;
         private Area area;
 
@@ -87,6 +91,7 @@ public class MapFragment extends Fragment
             imageView7.setImageResource(area.getUnstarred());
             imageView8.setImageResource(R.color.transparent);
 
+            //if player is at the current area set the picture to that area
             if(area.equals(data.getCurrArea()))
             {
                 imageView8.setImageResource(R.drawable.player);
