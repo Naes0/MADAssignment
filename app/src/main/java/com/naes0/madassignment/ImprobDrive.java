@@ -2,6 +2,7 @@ package com.naes0.madassignment;
 
 
 import android.content.Context;
+import android.content.Intent;
 
 public class ImprobDrive extends Equipment
 {
@@ -17,7 +18,7 @@ public class ImprobDrive extends Equipment
     {
         GameData data = GameData.get(c);
         data.regenerate();
-
+        c.startActivity(new Intent(c, NavigationActivity.class));
         //regenerate map and items, player keeps items.
     }
 
